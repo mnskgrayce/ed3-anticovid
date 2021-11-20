@@ -17,6 +17,7 @@ Clone this repository onto your local machine then perform the following steps:
 3. Put your code inside this folder and push to your subteam's branch
 
 To run code from the software team:
+
 - Install Node JS and NPM: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 - It is best to install NPM by the Node Version Manager (https://github.com/nvm-sh/nvm) to avoid package permission issues
 - After cloning the team repository, checkout the `user-interface` branch and run `cd user-interface`
@@ -24,20 +25,33 @@ To run code from the software team:
 - Right click anywhere then choose "Inspect" to open the Developer Tools panel
 - You can view the live update logs in the "Console" tab
 
-Tutorials (to be updated):
-
-- More about remote branches: https://devconnected.com/how-to-set-upstream-branch-on-git/
-
 ## Git Workflow
 
-- Update remote changes to the entire project with `git fetch origin`
+All commands are run from the Terminal inside the project (subteam's) folder. If your current IDE supports Git, consider using the graphic interface tools for simplicity.
+
+- Update remote changes to your branch with `git fetch origin branch_name`
 - View the code at the remote branch with `git checkout origin/branch_name`
 - Check the code to see if it's safe to merge with your local branch
-- Return to your local branch with `git checkout your_branch`
+- Return to your local branch with `git checkout branch_name`
 - Merge changes from a remote branch to your current branch with `git merge origin/branch_name`
-- Modify your code, then use `git add .` and `git commit -m "commit_message"` to make local commits
+- Modify your code, the run `git add .` to stage all changes **inside your current folder**
+- Run `git -m "commit_message"` to make a local commit
 - Push changes from your current branch to the remote branch with `git push -u origin branch_name`
-- Create a pull request (PR) before merging your branch code to the **master** branch
+
+**Create a pull request (PR) to merge your branch to the master branch!**
+
+## Handy Commands
+
+- Check which branch are you on: `git status`
+- Switch to another branch: `git checkout branch_name`
+- View commit history of current branch: `git log` (escape by typing "q")
+- Set your current local branch to track a remote branch: `git branch -u origin/branch_name`
+- Rename a branch: `git branch -m <oldname> <newname>`
+
+## Tutorials (to be updated)
+
+- Remote branches: https://devconnected.com/how-to-set-upstream-branch-on-git/
+- Renaming branches: https://stackoverflow.com/questions/6591213/how-do-i-rename-a-local-git-branch
 
 ## Notes
 
