@@ -16,9 +16,17 @@ Clone this repository onto your local machine then perform the following steps:
 2. Create a folder with the same name as the branch to contain your subteam's code
 3. Put your code inside this folder and push to your subteam's branch
 
-Tutorials:
+To run code from the software team:
+- Install Node JS and NPM: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
+- It is best to install NPM by the Node Version Manager (https://github.com/nvm-sh/nvm) to avoid package permission issues
+- After cloning the team repository, checkout the `user-interface` branch and run `cd user-interface`
+- Run `npm install` to reinstall missing packages, then run `npm start` to boot up the web application
+- Right click anywhere then choose "Inspect" to open the Developer Tools panel
+- You can view the live update logs in the "Console" tab
 
-- https://devconnected.com/how-to-set-upstream-branch-on-git/
+Tutorials (to be updated):
+
+- More about remote branches: https://devconnected.com/how-to-set-upstream-branch-on-git/
 
 ## Git Workflow
 
@@ -29,6 +37,7 @@ Tutorials:
 - Merge changes from a remote branch to your current branch with `git merge origin/branch_name`
 - Modify your code, then use `git add .` and `git commit -m "commit_message"` to make local commits
 - Push changes from your current branch to the remote branch with `git push -u origin branch_name`
+- Create a pull request (PR) before merging your branch code to the **master** branch
 
 ## Notes
 
