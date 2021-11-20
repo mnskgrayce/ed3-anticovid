@@ -27,7 +27,9 @@ To run code from the software team:
 
 ## Git Workflow
 
-All commands are run from the Terminal inside the project (subteam's) folder. If your current IDE supports Git, consider using the graphic interface tools for simplicity.
+All commands are run from the Terminal inside the project (subteam's) folder. If your current IDE supports Git, consider using the graphic interface tools for simplicity. If you use VS Code, see the Source Control (left) and branch manager (bottom left) tabs.
+
+Keep an eye on the number of pending commits (both from and to your local machine) and always try to merge the latest updates from remote before you commit local changes.
 
 - Update remote changes to your branch with `git fetch origin branch_name`
 - View the code at the remote branch with `git checkout origin/branch_name`
