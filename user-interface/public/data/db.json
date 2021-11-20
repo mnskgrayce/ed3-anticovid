@@ -1,0 +1,15 @@
+{
+  "temp_sensor": [
+    {
+      "id": 1,
+      "temperature": "28",
+      "humidity": "73"
+    }
+  ],
+  "motion": [
+    {
+      "id": 1,
+      "total": "1"
+    }
+  ]
+}
