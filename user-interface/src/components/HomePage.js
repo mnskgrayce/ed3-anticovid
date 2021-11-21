@@ -40,8 +40,6 @@ const HomePage = () => {
       .then((data) => {
         setTemperature(data.temperature);
         setHumidity(data.humidity);
-
-        console.log("Temperature: ", temperature, "\nHumidity: ", humidity);
       })
       .catch((error) => {
         console.log(error);
@@ -61,13 +59,19 @@ const HomePage = () => {
       })
       .then((data) => {
         setTotalPeople(data.total);
-
-        console.log("Total people: ", totalPeople);
       })
       .catch((error) => {
         console.log(error);
       });
   }, 10000);
+
+  useEffect(() => {
+    console.log("Temperature: ", temperature, "\nHumidity: ", humidity);
+  }, [temperature, humidity]);
+
+  useEffect(() => {
+    console.log("Total people: ", totalPeople);
+  }, [totalPeople]);
 
   return (
     <div>
