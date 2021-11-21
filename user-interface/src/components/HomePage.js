@@ -26,10 +26,11 @@ const HomePage = () => {
   const [humidity, setHumidity] = useState(0);
   const [totalPeople, setTotalPeople] = useState(0);
 
+  // Live update sensor data
   useInterval(async () => {
     console.log("Polling sensor data...");
 
-    fetch("data/db.json")
+    fetch("http://192.168.0.103:8000/temp_sensor/1")
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -37,16 +38,36 @@ const HomePage = () => {
         throw response;
       })
       .then((data) => {
-        setTemperature(data.temp_sensor[0].temperature);
-        setHumidity(data.temp_sensor[0].humidity);
-        setTotalPeople(data.motion[0].total);
+        setTemperature(data.temperature);
+        setHumidity(data.humidity);
 
-        console.log(temperature, humidity, totalPeople);
+        console.log("Temperature: ", temperature, "\nHumidity: ", humidity);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, 5000);
+  }, 4000);
+
+  // Live update motion data
+  useInterval(async () => {
+    console.log("Polling motion data...");
+
+    fetch("http://192.168.0.103:8000/motion/1")
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw response;
+      })
+      .then((data) => {
+        setTotalPeople(data.total);
+
+        console.log("Total people: ", totalPeople);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, 10000);
 
   return (
     <div>
