@@ -12,6 +12,7 @@ import VisionCameraPanel from "./components/VisionCameraPanel";
 import QRCameraPanel from "./components/QRCameraPanel";
 import MotionBar from "./components/MotionBar";
 
+
 function App() {
   // Custom hook to repeatedly run a function
   const useInterval = (callback, delay) => {
