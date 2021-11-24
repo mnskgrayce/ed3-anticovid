@@ -1,25 +1,28 @@
-var express = require('express');
-var socket = require('socket.io');
-// var Buffer = require('buffer','utf8');
+const express = require("express");
+const http = require("http");
+const socketIo = require("socket.io");
 
-// App setup
-var app = express();
-var server = app.listen(4000,'0.0.0.0', function(){
-    console.log('listening for requests on port 4000,');
-});
+const port = process.env.PORT || 4000;
+// const index = require("../components");
 
-// Static files
+const app = express();
 app.use(express.static('../public'));
+
+const server = http.createServer(app);
 
 const io = socketIo(server, {
     cors: {
-      origin: "http://localhost:3000",
+      origin: "*",
       methods: ["GET", "POST"]
     }
-});
+  });
 
-io.on('connection',function(socket){
-    console.log("made socket connection");
+io.on("connection", (socket) => {
+    console.log("New client connected");
+
+    socket.on("disconnect", () => {
+      console.log("Client disconnected");
+    });
 
     socket.on('chat',function(data){
         console.log(data);
@@ -39,4 +42,6 @@ io.on('connection',function(socket){
     socket.on('close', function(data){
         io.sockets.emit('video',data);
     })
-});
+  });
+
+server.listen(port, () => console.log(`Listening on port ${port}`));

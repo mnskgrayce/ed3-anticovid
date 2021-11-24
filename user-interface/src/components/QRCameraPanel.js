@@ -1,16 +1,12 @@
-import io from 'socket.io-client';
+import socketIOClient from "socket.io-client";
 
 const QRCameraPanel = () => {
+  const ENDPOINT = "http://10.247.208.54:4000";
 
-  const socket = io('localhost:4000');
-
+  const socket = socketIOClient(ENDPOINT);
   socket.on('video',function(data){
-    // console.log(data);
     var string_src = "data:image/png;base64, "+data;
-    document.getElementById('myImageID').src=string_src;
-    console.log(string_src)
-    console.log("\n")
-    
+    document.getElementById("myImageID").src=string_src;
   })
 
   socket.on('close',function(data){

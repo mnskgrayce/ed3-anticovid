@@ -44,7 +44,7 @@ function App() {
   const [entries, setEntries] = useState(0);
   const [exits, setExits] = useState(0);
   const [totalPeople, setTotalPeople] = useState(0);
-
+  
   // Fetch sensor data
   useInterval(async () => {
     fetch("http://192.168.0.103:8000/temp_sensor/1")
