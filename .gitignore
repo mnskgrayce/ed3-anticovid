@@ -1,2 +1,107 @@
 user-interface/node_modules
 .DS_Store
+
+# Byte-compiled / optimized / DLL files
+qr-camera/grove.py/__pycache__/
+qr-camera/grove.py/*.py[cod]
+qr-camera/grove.py/*$py.class
+
+# C extensions
+qr-camera/grove.py/*.so
+
+# Distribution / packaging
+qr-camera/grove.py/.Python
+qr-camera/grove.py/build/
+qr-camera/grove.py/develop-eggs/
+qr-camera/grove.py/dist/
+qr-camera/grove.py/downloads/
+qr-camera/grove.py/eggs/
+qr-camera/grove.py/.eggs/
+qr-camera/grove.py/lib/
+qr-camera/grove.py/lib64/
+qr-camera/grove.py/parts/
+qr-camera/grove.py/sdist/
+qr-camera/grove.py/var/
+qr-camera/grove.py/wheels/
+qr-camera/grove.py/*.egg-info/
+qr-camera/grove.py/.installed.cfg
+qr-camera/grove.py/*.egg
+qr-camera/grove.py/MANIFEST
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+qr-camera/grove.py/*.manifest
+qr-camera/grove.py/*.spec
+
+# Installer logs
+qr-camera/grove.py/pip-log.txt
+qr-camera/grove.py/pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+qr-camera/grove.py/htmlcov/
+qr-camera/grove.py/.tox/
+qr-camera/grove.py/.coverage
+qr-camera/grove.py/.coverage.*
+qr-camera/grove.py/.cache
+qr-camera/grove.py/nosetests.xml
+qr-camera/grove.py/coverage.xml
+qr-camera/grove.py/*.cover
+qr-camera/grove.py/.hypothesis/
+
+# Translations
+qr-camera/grove.py/*.mo
+qr-camera/grove.py/*.pot
+
+# Django stuff:
+qr-camera/grove.py/*.log
+qr-camera/grove.py/.static_storage/
+qr-camera/grove.py/.media/
+qr-camera/grove.py/local_settings.py
+
+# Flask stuff:
+qr-camera/grove.py/instance/
+qr-camera/grove.py/.webassets-cache
+
+# Scrapy stuff:
+qr-camera/grove.py/.scrapy
+
+# Sphinx documentation
+qr-camera/grove.py/docs/_build/
+
+# PyBuilder
+qr-camera/grove.py/target/
+
+# Jupyter Notebook
+qr-camera/grove.py/.ipynb_checkpoints
+
+# pyenv
+qr-camera/grove.py/.python-version
+
+# celery beat schedule file
+qr-camera/grove.py/celerybeat-schedule
+
+# SageMath parsed files
+qr-camera/grove.py/*.sage.py
+
+# Environments
+qr-camera/grove.py/.env
+qr-camera/grove.py/.venv
+qr-camera/grove.py/env/
+qr-camera/grove.py/venv/
+qr-camera/grove.py/ENV/
+qr-camera/grove.py/env.bak/
+qr-camera/grove.py/venv.bak/
+
+# Spyder project settings
+qr-camera/grove.py/.spyderproject
+qr-camera/grove.py/.spyproject
+
+# Rope project settings
+qr-camera/grove.py/.ropeproject
+
+# mkdocs documentation
+qr-camera/grove.py/site
+
+# mypy
+qr-camera/grove.py/.mypy_cache/
