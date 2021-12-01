@@ -178,23 +178,27 @@ def LCD_roomCondition():
         button.led.light(False)
     url = 'http://192.168.50.46:8000/temp_sensor/1'        # API
     url1 = 'http://192.168.50.46:8000/motion/1'             # API
+
+    sio.emit('sensor', {'temperature':temp, 'humidity':humi,'moisture':mois})  
+    sio.emit('motion', {'total_people':total,  'people_in':enter, 'people_out':exit1})
+
     # Format for room condition on json
-    mydict = {
-    'id':1,
-    'temperature': temp,
-    'humidity': humi,
-    'moisture': mois,
-    'checkout': state_people
-    }
-    response = requests.put(url, data = mydict)
-    mydict1 = {
-    'id':1,
-    'total_people': total,
-    'people_in': enter,
-    'people_out': exit1,
-    'FPS_camera': fps
-    }
-    response = requests.put(url1, data = mydict1)
+    # mydict = {
+    # 'id':1,
+    # 'temperature': temp,
+    # 'humidity': humi,
+    # 'moisture': mois,
+    # 'checkout': state_people
+    # }
+    # response = requests.put(url, data = mydict)
+    # mydict1 = {
+    # 'id':1,
+    # 'total_people': total,
+    # 'people_in': enter,
+    # 'people_out': exit1,
+    # 'FPS_camera': fps
+    # }
+    # response = requests.put(url1, data = mydict1)
 
 # Funtion for socket io
 def threadingforQR(img):
@@ -364,13 +368,15 @@ def on_detect():
                 # format total people in room for json 
         total = enter - exit1                              # total people in room
         # format total people in room for json
-        mydict = {
-        'id':1,
-        'total_people': total,
-        'people_in': enter,
-        'people_out': exit1
-        }
-        response = requests.put(url, data = mydict)
+        # mydict = {
+        # 'id':1,
+        # 'total_people': total,
+        # 'people_in': enter,
+        # 'people_out': exit1
+        # }
+        # response = requests.put(url, data = mydict)
+        sio.emit('motion', {'total_people':total,  'people_in':enter, 'people_out':exit1})
+    
         count = 0                                              # Set time count back 0 for next loop
 
 # main fruntion
