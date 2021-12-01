@@ -40,7 +40,6 @@ io.on("connection", (socket) => {
     })
 
     socket.on('videoVision', function(data){
-      console.log(data)
       let base64data = Buffer.from(data,'base64').toString('ascii')
       io.sockets.emit('videoVision',base64data);
     })

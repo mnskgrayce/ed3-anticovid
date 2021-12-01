@@ -40,14 +40,17 @@ function App() {
   const [temperature, setTemperature] = useState(35);
   const [humidity, setHumidity] = useState(50);
   const [moisture, setMoisture] = useState(70);
+  const [checkout, setCheckout] = useState(0);
+
   // Motion variables
   const [entries, setEntries] = useState(0);
   const [exits, setExits] = useState(0);
   const [totalPeople, setTotalPeople] = useState(0);
+  const [fps, setFPS] = useState(0);
   
   // Fetch sensor data
   useInterval(async () => {
-    fetch("http://192.168.0.103:8000/temp_sensor/1")
+    fetch("http://192.168.0.102:8000/temp_sensor/1")
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -58,6 +61,8 @@ function App() {
         setTemperature(data.temperature);
         setHumidity(data.humidity);
         setMoisture(data.moisture);
+        setCheckout(data.checkout);
+
       })
       .catch((error) => {
         console.log(error);
@@ -66,7 +71,7 @@ function App() {
 
   // Fetch motion data
   useInterval(async () => {
-    fetch("http://192.168.0.103:8000/motion/1")
+    fetch("http://192.168.0.102:8000/motion/1")
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -77,6 +82,7 @@ function App() {
         setEntries(data.people_in);
         setExits(data.people_out);
         setTotalPeople(data.total_people);
+        setFPS(data.FPS_camera);
       })
       .catch((error) => {
         console.log(error);
@@ -91,9 +97,11 @@ function App() {
       "\nHumidity: ",
       humidity,
       "\nMoisture: ",
-      moisture
+      moisture,
+      "\nCheckout: ",
+      checkout
     );
-  }, [temperature, humidity, moisture]);
+  }, [temperature, humidity, moisture,checkout]);
 
   useEffect(() => {
     console.log(
@@ -104,7 +112,7 @@ function App() {
       "\nTotal: ",
       totalPeople
     );
-  }, [entries, exits, totalPeople]);
+  }, [entries, exits, totalPeople, fps]);
 
   return (
     <div className="App">
@@ -125,7 +133,10 @@ function App() {
               <VisionCameraPanel />
             </Col>
             <Col xs={4}>
-              <QRCameraPanel />
+              <QRCameraPanel 
+                checkout={checkout}
+                fps = {fps}
+              />
               <MotionBar
                 entries={entries}
                 exits={exits}
