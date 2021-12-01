@@ -50,7 +50,7 @@ function App() {
   
   // Fetch sensor data
   useInterval(async () => {
-    fetch("http://192.168.0.103:8000/temp_sensor/1")
+    fetch("http://192.168.0.102:8000/temp_sensor/1")
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -71,7 +71,7 @@ function App() {
 
   // Fetch motion data
   useInterval(async () => {
-    fetch("http://192.168.0.103:8000/motion/1")
+    fetch("http://192.168.0.102:8000/motion/1")
       .then((response) => {
         if (response.ok) {
           return response.json();

@@ -1,7 +1,7 @@
 import socketIOClient from "socket.io-client";
 
 const VisionCameraPanel = () => {
-  const ENDPOINT = "http://10.247.195.173:4000";
+  const ENDPOINT = "http://192.168.0.102:4000";
 
   const socket = socketIOClient(ENDPOINT);
   socket.on('videoVision',function(data){
