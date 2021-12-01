@@ -1,7 +1,7 @@
 import socketIOClient from "socket.io-client";
 
-const QRCameraPanel = () => {
-  const ENDPOINT = "http://192.168.100.7:4000";
+const QRCameraPanel = ({checkout}) => {
+  const ENDPOINT = "http://10.247.195.173:4000";
 
   const socket = socketIOClient(ENDPOINT);
   socket.on('video',function(data){
@@ -11,11 +11,20 @@ const QRCameraPanel = () => {
 
   return (
     <div className="border shadow-sm bg-body p-2 rounded h-75">
-      <p className="text-start text-uppercase text-muted">
-        <img className="w-100 h-100" id="myImageID" src="" alt="QR Camera"></img>
-      </p>
+      <h3>{checkout === 0
+              ? "0"
+              : checkout === 1
+              ? "1"
+              : checkout ===2
+              ? "2"
+              : checkout === 3
+              ? "3"
+              : ""}</h3>
+
+      <img className="w-100 h-100 pb-5" id="myImageID" src="" alt="QR Camera"></img>
     </div>
-  );
+   
+);
 };
 
 export default QRCameraPanel;

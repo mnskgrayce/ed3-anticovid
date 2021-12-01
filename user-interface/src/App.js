@@ -40,6 +40,8 @@ function App() {
   const [temperature, setTemperature] = useState(35);
   const [humidity, setHumidity] = useState(50);
   const [moisture, setMoisture] = useState(70);
+  const [checkout, setCheckout] = useState(0);
+
   // Motion variables
   const [entries, setEntries] = useState(0);
   const [exits, setExits] = useState(0);
@@ -58,6 +60,8 @@ function App() {
         setTemperature(data.temperature);
         setHumidity(data.humidity);
         setMoisture(data.moisture);
+        setCheckout(data.checkout);
+
       })
       .catch((error) => {
         console.log(error);
@@ -91,9 +95,11 @@ function App() {
       "\nHumidity: ",
       humidity,
       "\nMoisture: ",
-      moisture
+      moisture,
+      "\nCheckout: ",
+      checkout
     );
-  }, [temperature, humidity, moisture]);
+  }, [temperature, humidity, moisture,checkout]);
 
   useEffect(() => {
     console.log(
@@ -125,7 +131,9 @@ function App() {
               <VisionCameraPanel />
             </Col>
             <Col xs={4}>
-              <QRCameraPanel />
+              <QRCameraPanel 
+                checkout={checkout}
+              />
               <MotionBar
                 entries={entries}
                 exits={exits}

@@ -1,7 +1,7 @@
 import socketIOClient from "socket.io-client";
 
 const VisionCameraPanel = () => {
-  const ENDPOINT = "http://192.168.100.7:4000";
+  const ENDPOINT = "http://10.247.195.173:4000";
 
   const socket = socketIOClient(ENDPOINT);
   socket.on('videoVision',function(data){
@@ -11,9 +11,7 @@ const VisionCameraPanel = () => {
 
   return (
     <div className="border shadow-sm bg-body p-2 rounded h-100">
-      <p className="text-start text-uppercase text-muted">
-        <img className="w-100 h-100" id="mySocialID" src="" alt="QR Camera"></img>
-      </p>
+      <img className="w-80 h-80" id="mySocialID"  src="" alt="Main Camera"></img>
     </div>
   );
 };
