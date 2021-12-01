@@ -1,7 +1,8 @@
 import socketIOClient from "socket.io-client";
+import Badge from "react-bootstrap/Badge";
 
 const QRCameraPanel = ({checkout,fps}) => {
-  const ENDPOINT = "http://10.247.195.173:4000";
+  const ENDPOINT = "http://192.168.0.102:4000";
 
   const socket = socketIOClient(ENDPOINT);
   socket.on('video',function(data){
@@ -11,16 +12,31 @@ const QRCameraPanel = ({checkout,fps}) => {
 
   return (
     <div className="border shadow-sm bg-body p-2 rounded h-75">
-      <p>FPS: {fps}</p>
-      <p>{checkout === 1
+      <Badge
+            bg={`${
+              checkout === "2"
+                ? "warning"
+                :checkout === "3"
+                ? "warning"
+                :checkout === "4"
+                ? "success"
+                : checkout === "1"
+                ? "success"
+                : ""
+            }`}
+            className="ms-2"
+          >
+            {checkout === "1"
               ? "QR Scan valid"
-              : checkout ===2
+              : checkout === "2"
               ? "Room full"
-              : checkout === 3
+              : checkout === "3"
               ? "QR Scan Invalid"
-              : checkout === 4
+              : checkout === "4"
               ? "Exiting the room"
-              : ""}</p>
+              : ""}
+        </Badge>
+      <p>FPS: {fps}</p>
       <img className="w-100 h-100 pb-5" id="myImageID" src="" alt="QR Camera"></img>
     </div>
    
