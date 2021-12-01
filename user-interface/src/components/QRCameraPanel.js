@@ -11,14 +11,16 @@ const QRCameraPanel = ({checkout,fps}) => {
 
   return (
     <div className="border shadow-sm bg-body p-2 rounded h-75">
+      <p>FPS: {fps}</p>
       <p>{checkout === 1
               ? "QR Scan valid"
               : checkout ===2
               ? "Room full"
               : checkout === 3
               ? "QR Scan Invalid"
+              : checkout === 4
+              ? "Exiting the room"
               : ""}</p>
-      <p>FPS: {fps}</p>
       <img className="w-100 h-100 pb-5" id="myImageID" src="" alt="QR Camera"></img>
     </div>
    
