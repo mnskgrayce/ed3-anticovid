@@ -46,6 +46,7 @@ function App() {
   const [entries, setEntries] = useState(0);
   const [exits, setExits] = useState(0);
   const [totalPeople, setTotalPeople] = useState(0);
+  const [fps, setFPS] = useState(0);
   
   // Fetch sensor data
   useInterval(async () => {
@@ -81,6 +82,7 @@ function App() {
         setEntries(data.people_in);
         setExits(data.people_out);
         setTotalPeople(data.total_people);
+        setFPS(data.FPS_camera);
       })
       .catch((error) => {
         console.log(error);
@@ -110,7 +112,7 @@ function App() {
       "\nTotal: ",
       totalPeople
     );
-  }, [entries, exits, totalPeople]);
+  }, [entries, exits, totalPeople, fps]);
 
   return (
     <div className="App">
@@ -133,6 +135,7 @@ function App() {
             <Col xs={4}>
               <QRCameraPanel 
                 checkout={checkout}
+                fps = {fps}
               />
               <MotionBar
                 entries={entries}
