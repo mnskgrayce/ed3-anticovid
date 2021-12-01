@@ -12,8 +12,7 @@ import VisionCameraPanel from "./components/VisionCameraPanel";
 import QRCameraPanel from "./components/QRCameraPanel";
 import MotionBar from "./components/MotionBar";
 
-
-function App() {
+function App({ url }) {
   // Custom hook to repeatedly run a function
   const useInterval = (callback, delay) => {
     const savedCallback = useRef();
@@ -47,10 +46,10 @@ function App() {
   const [exits, setExits] = useState(0);
   const [totalPeople, setTotalPeople] = useState(0);
   const [fps, setFPS] = useState(0);
-  
+
   // Fetch sensor data
   useInterval(async () => {
-    fetch("http://192.168.0.102:8000/temp_sensor/1")
+    fetch(`${url}:8000/temp_sensor/1`)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -62,16 +61,15 @@ function App() {
         setHumidity(data.humidity);
         setMoisture(data.moisture);
         setCheckout(data.checkout);
-
       })
       .catch((error) => {
         console.log(error);
       });
-  }, 500);
+  }, 200);
 
   // Fetch motion data
   useInterval(async () => {
-    fetch("http://192.168.0.102:8000/motion/1")
+    fetch(`${url}:8000/motion/1`)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -87,7 +85,7 @@ function App() {
       .catch((error) => {
         console.log(error);
       });
-  }, 1000);
+  }, 500);
 
   // Update UI when data changes
   useEffect(() => {
@@ -101,7 +99,7 @@ function App() {
       "\nCheckout: ",
       checkout
     );
-  }, [temperature, humidity, moisture,checkout]);
+  }, [temperature, humidity, moisture, checkout]);
 
   useEffect(() => {
     console.log(
@@ -130,13 +128,10 @@ function App() {
         <Container className="flex-grow-1 mb-2">
           <Row className="h-100">
             <Col xs={8}>
-              <VisionCameraPanel />
+              <VisionCameraPanel url={url} />
             </Col>
             <Col xs={4}>
-              <QRCameraPanel 
-                checkout={checkout}
-                fps = {fps}
-              />
+              <QRCameraPanel checkout={checkout} fps={fps} url={url} />
               <MotionBar
                 entries={entries}
                 exits={exits}
