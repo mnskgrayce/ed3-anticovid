@@ -12,6 +12,7 @@
     "child_process": "^1.0.2",
     "concurrently": "^6.4.0",
     "express": "^4.17.1",
+    "fs": "^0.0.1-security",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.2",
     "react-dom": "^17.0.2",
@@ -20,12 +21,15 @@
     "socket.io-client": "^4.4.0",
     "web-vitals": "^1.1.2"
   },
+  "config": {
+    "myUrl": "http://192.168.0.108"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "boot": "concurrently \"react-scripts start\" \"cd server && node server.js\""
+    "boot": "concurrently \"react-scripts start\" \"node server/server.js\" \"node server/serverMain.js\" \"json-server --host 192.168.0.108 db.json --port 8000\" \"python main_camera.py\""
   },
   "eslintConfig": {
     "extends": [
