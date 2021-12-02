@@ -1,36 +1,52 @@
 import Badge from "react-bootstrap/Badge";
+import socketIOClient from "socket.io-client";
 
-const SensorBar = ({ temperature, humidity, moisture }) => {
+const SensorBar = ({url}) => {
+  const ENDPOINT = `${url}:5000`;
+
+  const socket = socketIOClient(ENDPOINT);
+  socket.on("sensor", function (data) {
+    //Dictionary  {"temperature": temperature,"humidity":humidity, "moisture":moisture}
+    var temperature = data.temperature
+    var  humidity = data.humidity
+    var moisture = data.moisture
+
+    //Temperature and background
+    var color_temp = temperature <= 20? "blue": temperature > 20 && temperature < 35? "orange": temperature >= 35? "red": "blue"
+    var status_temp = temperature <= 20? "cold": temperature > 20 && temperature < 35? "normal": temperature >= 35? "hot": "cold"
+    document.getElementById("temp_id").innerHTML = temperature;
+    document.getElementById("badge_temp_id").style.backgroundColor = color_temp
+    document.getElementById("badge_temp_id").innerHTML = status_temp
+
+    //Humidityand background
+    var color_humi = humidity <= 50? "red": humidity > 50 && humidity < 70? "green": humidity >= 70? "blue": "red"
+    var status_humi = humidity <= 50? "red": humidity > 50 && humidity < 70? "green": humidity >= 70? "blue": "red"
+    document.getElementById("humidity_id").innerHTML = humidity;
+    document.getElementById("badge_humi_id").style.backgroundColor = color_humi
+    document.getElementById("badge_humi_id").innerHTML = status_humi
+
+    //Moisture background
+    var color_moist = moisture <= 50? "red": moisture > 50 && moisture < 70? "green": moisture >= 70? "blue": "red"
+    var status_moist= moisture <= 50? "red": moisture > 50 && moisture < 70? "green": moisture >= 70? "blue": "red"
+    document.getElementById("moist_id").innerHTML = moisture;
+    document.getElementById("badge_moist_id").style.backgroundColor = color_moist
+    document.getElementById("badge_moist_id").innerHTML = status_moist
+  });
+
   return (
-    <div className="shadow-sm border p-2 mx-4 my-2 bg-body rounded">
+    <div className="shadow-sm border p-2 mx-4 my-2 mb-5 bg-body rounded">
       <div className="d-flex justify-content-center align-items-center">
         <div className="px-5 border-end">
           <i
             className="bi bi-thermometer-high text-danger"
             style={{ "font-size": "2rem" }}
           ></i>
-          Temperature:<span className="ms-2 fw-bold fs-5">{temperature}</span>
+          Temperature:<span id="temp_id" className="ms-2 fw-bold fs-5" ></span>
           &deg;C
-          <Badge
-            pill
-            bg={`${
-              temperature <= 20
-                ? "info"
-                : temperature > 20 && temperature < 35
-                ? "warning"
-                : temperature >= 35
-                ? "danger"
-                : ""
-            }`}
+          <Badge 
+            id="badge_temp_id"
             className="ms-2"
           >
-            {temperature <= 20
-              ? "cold"
-              : temperature > 20 && temperature < 35
-              ? "normal"
-              : temperature >= 35
-              ? "hot"
-              : ""}
           </Badge>
         </div>
 
@@ -39,28 +55,12 @@ const SensorBar = ({ temperature, humidity, moisture }) => {
             className="bi bi-water me-2 text-success"
             style={{ "font-size": "2rem" }}
           ></i>
-          Humidity:<span className="ms-2 fw-bold fs-5">{humidity}</span>
+          Humidity:<span id="humidity_id" className="ms-2 fw-bold fs-5"></span>
           &#37;
           <Badge
-            pill
-            bg={`${
-              humidity <= 50
-                ? "warning"
-                : humidity > 50 && humidity < 70
-                ? "success"
-                : humidity >= 70
-                ? "info"
-                : ""
-            }`}
+            id="badge_humi_id"
             className="ms-2"
           >
-            {humidity <= 50
-              ? "dry"
-              : humidity > 50 && humidity < 70
-              ? "moist"
-              : humidity >= 70
-              ? "wet"
-              : ""}
           </Badge>
         </div>
         <div className="px-5 border-end">
@@ -68,28 +68,12 @@ const SensorBar = ({ temperature, humidity, moisture }) => {
             className="bi bi-moisture me-2 text-info"
             style={{ "font-size": "2rem" }}
           ></i>
-          Moisture:<span className="ms-2 fw-bold fs-5">{moisture}</span>
+          Moisture:<span id="moist_id" className="ms-2 fw-bold fs-5"></span>
           &#37;
           <Badge
-            pill
-            bg={`${
-              moisture <= 50
-                ? "warning"
-                : moisture > 50 && moisture < 70
-                ? "success"
-                : moisture >= 70
-                ? "info"
-                : ""
-            }`}
             className="ms-2"
+            id="badge_moist_id"
           >
-            {moisture <= 50
-              ? "dry"
-              : moisture > 50 && moisture < 70
-              ? "moist"
-              : moisture >= 70
-              ? "wet"
-              : ""}
           </Badge>
         </div>
       </div>
