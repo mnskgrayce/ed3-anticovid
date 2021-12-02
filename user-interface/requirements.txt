@@ -1,0 +1,6 @@
+python-socketio
+websockets
+pybase64
+websocket-client
+requests
+socketio

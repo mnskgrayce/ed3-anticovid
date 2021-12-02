@@ -1,0 +1,16 @@
+{
+  "temp_sensor": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "motion": [
+    {
+      "id": 1,
+      "motion": "some comment",
+      "postId": 1
+    }
+  ]
+}
