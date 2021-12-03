@@ -84,14 +84,14 @@ temp = 0
 mois = 0
 fps = 0
 ultra_check = 0
-current_distance = 0                                                        # variable for human in range of ultrasonic
+current_distance = False                                                        # variable for human in range of ultrasonic
 system_state = 0                                                            # initialize system state
 button.led.light(False)                                                     # initialize for button led
 myData = None
 
 # Constant variable
 TIME_QR = 150                                                              # Limit time for scaning QR
-DISTANCE = 70                                                              # limit distance for ultrasonic measure
+DISTANCE = 50                                                              # limit distance for ultrasonic measure
 TIME_MOTION = 4                                                            # Limit time for motion
 
 language ="en"  
@@ -124,6 +124,7 @@ def LCD_display():
     global entering
     global fps
     global lcd_state
+    sio.emit('checkout',system_state)
     if lcd_state == 0:                                                  # waiting data state
         lcd.clear()
         lcd.setCursor(0, 0)                                   
@@ -171,8 +172,7 @@ def LCD_display():
         lcd_state = 0
 
     # Sending data to UI through Socket IO  
-    sio.emit('motion', {'total_people':total,  'people_in':entering, 'people_out':exiting})
-    sio.emit('checkout',system_state)
+
 
 # Funtion for buzzer QR valid, buzzing 2 times
 def buzzer_valid():
@@ -251,12 +251,15 @@ def on_detect():
     global ultra_check                                                      # Variable to solve ultrasonic unstable problem
     if system_state == 3:                                                   # Invalid
         system_state = 0
+        lcd_state = 0
         print('Invalidout')
     elif system_state == 2:                                                 # Room full
         system_state = 0
+        lcd_state = 0
         print('Room full')
     elif system_state == 5:                                                 # No scan
         system_state = 0
+        lcd_state = 0
         print('No scan')    
     elif system_state == 0 or system_state == 1 or system_state == 4:
         flag = 1
@@ -267,11 +270,14 @@ def on_detect():
             distance_detect = measure()
             if current_distance == True:
                 ultra_check += 1
-            elif current_distance == 0:
+            elif current_distance == False:
                 ultra_check = 0
             print('ultra check time', ultra_check)
+            cTime = time.time()
+            currentTime1 = time.ctime()
+            print('time', currentTime1)
             # print('cur_distance', current_distance)
-            time.sleep(0.2)
+            time.sleep(0.1)
             if distance_detect < DISTANCE:                                 # if people in range -> run QR scan
                 current_distance = True
                 if ultra_check == 1:
@@ -296,10 +302,10 @@ def on_detect():
         total = entering - exiting                                          # total people in room
         roomfull_on()
         sio.emit('motion', {'total_people':total,  'people_in':entering, 'people_out':exiting})  # Send data inside room to UI
-        sio.emit('checkout',system_state)
-        t4 = threading.Thread(target=LCD_display)
-        t4.start()
-        count_QR = 0                                                        # Set time count back 0 for next loop
+    t4 = threading.Thread(target=LCD_display)
+    t4.start()
+    count_QR = 0                                                        # Set time count back 0 for next loop
+    #sio.emit('checkout',system_state)
 
 # Funtion for scaning QR
 def QRcheck():
@@ -376,10 +382,12 @@ def QRcheck():
                 t2.start()
                 system_state = 3
                 lcd_state = 3
+            t4 = threading.Thread(target=LCD_display)
+            t4.start()
         count_QR += 1                                                       # counting for set time QR check 
         total = entering - exiting                                          # total people in room
         sio.emit('Qr_data',myData)
-        sio.emit('checkout',system_state)
+        #sio.emit('checkout',system_state)
         sio.emit('fps_qr', fps)                                             # Send fps to UI
         print('Number of people in room: ', total)
         print('People in: ', entering)
@@ -389,14 +397,17 @@ def QRcheck():
     if myData == None:
         system_state = 5
         lcd_state = 5
+        t4 = threading.Thread(target=LCD_display)
+        t4.start()
     myData = None
-
     if count_QR == TIME_QR:                                                 # If QR scan times out, buzzer on for 1s 
         t3 = threading.Thread(target=buzzer_timeout)
         t3.start()
 
 # main function
 def main():
+    sio.emit('motion', {'total_people':total,  'people_in':entering, 'people_out':exiting})
+    LCD_display()
     t5 = threading.Thread(target=roomCondition)
     t5.start()   
     while True:
