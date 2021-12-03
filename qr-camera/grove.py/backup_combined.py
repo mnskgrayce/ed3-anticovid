@@ -38,7 +38,7 @@ def connect_error():
 @sio.event
 def disconnect():
     print('disconnected from server')
-sio.connect('http://192.168.50.46:4000/')                                   # Connect through Pi IP port 4000
+sio.connect('http://192.168.50.185:4000/')                                   # Connect through Pi IP port 4000
 
 # Define for PIR motion sensor
 GPIO1.setwarnings(False)
@@ -347,6 +347,7 @@ def QRcheck():
                 myData = myData[0:(len(myData)-9)]                         # Filter out the student ID for welcome message
                 check_in_data = currentTime + '\tAuthorized\t\t' + myData
                 check_in_list(check_in_data)
+                sio.emit('Qr_data',myData)
                 stsQRcam = 0              
                 if total < 5:                                              # Check people in room less than 5
                     entering = entering + 1
@@ -386,7 +387,6 @@ def QRcheck():
             t4.start()
         count_QR += 1                                                       # counting for set time QR check 
         total = entering - exiting                                          # total people in room
-        sio.emit('Qr_data',myData)
         #sio.emit('checkout',system_state)
         sio.emit('fps_qr', fps)                                             # Send fps to UI
         print('Number of people in room: ', total)
