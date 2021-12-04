@@ -43,6 +43,18 @@ io.on("connection", (socket) => {
       let base64data = Buffer.from(data,'base64').toString('ascii')
       io.sockets.emit('videoVision',base64data);
     })
+
+    socket.on('sensor',function(sensor_data){
+      io.sockets.emit('sensor',sensor_data);
+    });
+
+    socket.on('motion',function(sensor_data){
+      io.sockets.emit('motion',sensor_data);
+    });
+
+    socket.on('checkout',function(sensor_data){
+      io.sockets.emit('checkout',sensor_data);
+    });
   });
 
 server.listen(port, () => console.log(`Listening on port ${port}`));

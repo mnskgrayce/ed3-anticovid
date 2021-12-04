@@ -1,7 +1,7 @@
 import socketIOClient from "socket.io-client";
 import Badge from "react-bootstrap/Badge";
 
-const QRCameraPanel = ({ checkout, fps, url }) => {
+const QRCameraPanel = ({ url }) => {
   const ENDPOINT = `${url}:4000`;
 
   const socket = socketIOClient(ENDPOINT);
@@ -13,7 +13,7 @@ const QRCameraPanel = ({ checkout, fps, url }) => {
   return (
     <div className="border shadow-sm bg-body mt-5 p-2 rounded">
       <div className="position-relative">
-        <Badge
+        {/* <Badge
           className="position-absolute top-0 start-0"
           bg={`${
             checkout === "2"
@@ -44,7 +44,7 @@ const QRCameraPanel = ({ checkout, fps, url }) => {
           }}
         >
           FPS: {fps}
-        </p>
+        </p> */}
         <img
           className=""
           id="myImageID"
