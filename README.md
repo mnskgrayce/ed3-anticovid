@@ -6,7 +6,7 @@ The project has three branches (not including master), each corresponding to a f
 
 - **user-interface** (Trang, Han)
 - **hardware-sensor** (Duc, Uyen)
-- **vision** (Thien)
+- **vision** (Thien, Joseph, Che Jui, Duc)
 
 ## Get Started
 
