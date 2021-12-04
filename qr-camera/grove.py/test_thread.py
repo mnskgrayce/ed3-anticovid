@@ -37,7 +37,7 @@ def connect_error():
 @sio.event
 def disconnect():
     print('disconnected from server')
-sio.connect('http://192.168.0.102:4000/')
+sio.connect('http://192.168.50.46:4000/')
 
 
 # funtion for buzzer
@@ -76,8 +76,13 @@ valid = 2                                                  # nueuture value
 humi = 0
 temp = 0
 mois = 0
+fps = 0
+button.led.light(False)
+distant_count = 0
+myData = None
 STEP_TIME = 150                                            # Limit time for scaning QR
 checkout = 0
+state_people = 0
 language ="en"  
 dataFile_path = r"/home/pi/Documents/Hardware/grove.py/myDataFile.txt"  # storing data check in
 with open(dataFile_path, "r") as f:                        # Open and read file
@@ -92,11 +97,11 @@ def check_in_list(name):
 # Funtion for buzzer
 def buzeer_on():
     relay.on()
-    time.sleep(0.5)
+    time.sleep(0.3)
     relay.off()
-    time.sleep(1)
-    relay.on()
     time.sleep(0.5)
+    relay.on()
+    time.sleep(0.3)
     relay.off()
     
 def roomCondition():
@@ -115,6 +120,11 @@ def LCD_roomCondition():
     global humi
     global temp
     global mois
+    global state_people
+    global total
+    global exit1
+    global enter
+    global fps
     print('roomcondition')
     if checkout == 0:
         lcd.clear()
@@ -128,47 +138,69 @@ def LCD_roomCondition():
         lcd.setCursor(1, 8)                                # Write total people in room
         lcd.write('total:{}'.format(total))
     elif checkout == 1:
+        checkout = 0
+        state_people = 1
         lcd.clear()
         lcd.setCursor(0, 0)                                   
         lcd.write('QR scan valid')
         lcd.setCursor(1, 0)                                   
         lcd.write('Enter the Room')
         time.sleep(5)
-        checkout = 0
     elif checkout == 2:
+        checkout = 0
+        state_people = 2
         lcd.clear()
         lcd.setCursor(0, 0)                                   
         lcd.write('room is full')
         lcd.setCursor(1, 0)                                   
         lcd.write('Enter is rejected')
         time.sleep(5) 
-        checkout = 0
     elif checkout == 3:
+        checkout = 0
+        state_people = 3
         lcd.clear()
         lcd.setCursor(0, 0)                                   
         lcd.write('QR scan invalid')
         lcd.setCursor(1, 0)                                   
         lcd.write('Enter is rejected')
         time.sleep(5)
-        checkout = 0
     elif checkout == 4:
+        checkout = 0
+        state_people = 4
         lcd.clear()
         lcd.setCursor(0, 0)                                   
-        lcd.write('QR scan invalid')
-        lcd.setCursor(1, 0)                                   
-        lcd.write('Enter is rejected')
+        lcd.write('Exiting the room')
         time.sleep(5)
-        checkout = 0
     
-    url = 'http://192.168.0.102:8000/temp_sensor/1'        # API
+    if total == 5:
+        button.led.light(True)
+    if total < 5:
+        button.led.light(False)
+    url = 'http://192.168.50.46:8000/temp_sensor/1'        # API
+    url1 = 'http://192.168.50.46:8000/motion/1'             # API
     # Format for room condition on json
     mydict = {
     'id':1,
     'temperature': temp,
     'humidity': humi,
-    'moisture': mois
+    'moisture': mois,
+    'checkout': state_people
     }
     response = requests.put(url, data = mydict)
+    mydict1 = {
+    'id':1,
+    'total_people': total,
+    'people_in': enter,
+    'people_out': exit1,
+    'FPS_camera': fps
+    }
+    response = requests.put(url1, data = mydict1)
+
+# Funtion for socket io
+def threadingforQR(img):
+    res, frame = cv2.imencode('.jpg', img,[cv2.IMWRITE_JPEG_QUALITY,80]) # from image to binary buffer
+    data = base64.b64encode(frame)                     # convert to base64 format
+    sio.emit('video', data)                            # send to server
 
 # Funtion for scaning QR
 def QRcheck():
@@ -180,11 +212,15 @@ def QRcheck():
     global total                                           # variable for total people in rooom
     global enter                                           # variable for counting enter the room
     global checkout
-    url = 'http://192.168.0.102:8000/motion/1'             # API
+    global myData
+    global state_people
+    global fps
+    # url = 'http://192.168.0.102:8000/motion/1'             # API
     stsQRcam = 1                                           # QR cam status 1 = on, 0 = off
     cap = cv2.VideoCapture(0)                              # Camera Streaming
     while stsQRcam and count != STEP_TIME:                 # Frequency 10Hz, 0.1s for 1 count
         #success0, img0 = cap0.read()  # Capture image
+
 
         # Send img by socket
         success, img1 = cap.read()                         # Capture real image from camera
@@ -195,14 +231,13 @@ def QRcheck():
 
         # Frame rate
         cTime = time.time()
-        fps = 1 / (cTime - pTime)
+        fps = round(1 / (cTime - pTime))
         pTime = cTime
-        cv2.putText(img, f'FPS: {int(fps)}', (10, 50), cv2.FONT_HERSHEY_PLAIN, 2, (0, 255, 0), 2)
+        #cv2.putText(img, f'FPS: {int(fps)}', (10, 50), cv2.FONT_HERSHEY_PLAIN, 2, (0, 255, 0), 2)
 
         for barcode in decode(img):                        # Scan Barcode
             myData = barcode.data.decode('utf-8')
             currentTime = time.ctime()
-
             if myData in myDataList:                       # Check on the list or not
                 myOutput = 'Authorized'
                 myColor = (0, 255, 0)                      # Green
@@ -224,7 +259,7 @@ def QRcheck():
                     # t4.start()
                     enter = enter
                     checkout = 2
-                    button.led.light(True)                 # turn on led
+                    # button.led.light(True)                 # turn on led
 
                 print(check_in_data)
                 # Drawing bonding box for the scanned QR code
@@ -232,8 +267,6 @@ def QRcheck():
                 pts = pts.reshape((-1, 1, 2))
                 cv2.polylines(img, [pts], True, myColor, 5)
                 pts2 = barcode.rect
-                # Voice message
-                wel_mess = myData + " has entered the room!"
             else:
                 myOutput = 'Un-Authorized'
                 myColor = (0, 0, 255)  # Red
@@ -248,22 +281,25 @@ def QRcheck():
                 print(check_in_data)
                 # t4 = threading.Thread(target=lcd_printinvalid)
                 # t4.start()
-                checkout = 3        
+                checkout = 3
         count += 1                                         # counting for set time QR check 
         total = enter - exit1                              # total people in room
-
         # format total people in room for json 
-        mydict = {
-        'id':1,
-        'total_people': total,
-        'people_in': enter,
-        'people_out': exit1
-        }
-        response = requests.put(url, data = mydict)      
+        # mydict = {
+        # 'id':1,
+        # 'total_people': total,
+        # 'people_in': enter,
+        # 'people_out': exit1,
+        # 'FPS_camera': fps
+        # }
+        # response = requests.put(url, data = mydict)      
         print('Number of people in room: ', total)
         print('People in: ', enter)
         print('People out: ', exit1)
-        print('count: ', count)
+        print('count: ', count) 
+    if myData == None:
+        state_people = 5
+    myData = None
 
 
 # Function for Distance dectect
@@ -281,22 +317,38 @@ def on_detect():
     global total
     global enter
     global checkout
-    if checkout == 3:
+    global state_people
+    global distant_count
+    print('check', checkout)
+    print('state_check', state_people)
+    if state_people == 3:
         checkout = 0
+        state_people = 0
         print('Invalidout')
+    elif state_people == 2:
+        checkout = 0
+        state_people = 0
+    elif state_people == 5:
+        checkout = 0
+        state_people = 0
+        print('No scan')
     elif checkout == 0:
-        url = 'http://192.168.0.102:8000/motion/1'             # API
+        url = 'http://192.168.50.46:8000/motion/1'             # API
         value = 1
         print('Motion detected')                               # print out whenever motion detected
-        button.led.light(False)                                # turn off led
+        # button.led.light(False)                                # turn off led
         # turn on Ultra sonic sensor
         while value != 0:
             distance_detect = measure()
-            time.sleep(0.5)
-            if distance_detect < 50:                           # if people in range -> run QR scan
-                t5 = threading.Thread(target=QRcheck)
-                t5.start()
-                value = 0
+            time.sleep(0.4)
+            if distance_detect < 8:                           # if people in range -> run QR scan
+                distant_count += 1
+                if distant_count == 2:
+                    distant_count = 0
+                    QRcheck()
+                # t5 = threading.Thread(target=QRcheck)
+                # t5.start()
+                    value = 0
             else:                                              # in case people exit the room
                 count1 += 1                                    # counting time for open ultra sonic
                 print('count1', count1)
@@ -306,11 +358,7 @@ def on_detect():
                         exit1 = exit1
                     else:
                         exit1 += 1
-                        checkout = 4
-                        # lcd.clear()
-                        # lcd.setCursor(0, 0)                                   
-                        # lcd.write('Existing the room')
-                        # time.sleep(1)  
+                        checkout = 4  
                     value = 0
                     print('exit', exit1)
                 # format total people in room for json 
@@ -335,7 +383,7 @@ def main():
         #LCD_roomCondition()
         # humi, temp, mois, level = roomCondition()          # Get value of humidity and temperter from room condition funtion
         motionSensor.on_detect = on_detect                 # Motion detected
-        time.sleep(1)
+        time.sleep(0.1)
  
 if __name__ == '__main__':
     main()
