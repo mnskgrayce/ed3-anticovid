@@ -1,6 +1,6 @@
 import socketIOClient from "socket.io-client";
 
-const VisionCameraPanel = ({ url , fps_main}) => {
+const VisionCameraPanel = ({ url }) => {
   const ENDPOINT = `${url}:5000`;
 
   const socket = socketIOClient(ENDPOINT);
@@ -9,18 +9,23 @@ const VisionCameraPanel = ({ url , fps_main}) => {
     document.getElementById("mySocialID").src = string_src;
   });
 
+  socket.on("fpsMain", function (data) {
+    document.getElementById("fps_main_id").innerHTML = "FPS: "+data;
+  });
+
   return (
     <div className="border shadow-sm  mt-5 p-2 rounded bg-dark">
+      
       <div className="position-relative">
         <p
-            id="fp_main_id"
-            className="mb-0 text-end fs-6 font-monospace position-absolute top-0 end-0"
-            style={{
-              color: "red",
-            }}
-          >
-            FPS:{fps_main}
-          </p>
+          className="mb-0 text-end fs-6 font-monospace position-absolute top-0 end-0"
+          style={{
+            color: "red",
+          }}
+          id="fps_main_id"
+        >
+          FPS: 
+        </p>
         <img
           className=""
           id="mySocialID"
@@ -29,7 +34,7 @@ const VisionCameraPanel = ({ url , fps_main}) => {
           style={{ width: "auto", "max-height": "440px", objectFit: "cover" }}
         ></img>
       </div>
-
+    
     </div>
   );
 };

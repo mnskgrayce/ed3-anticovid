@@ -3,7 +3,6 @@ const http = require("http");
 const socketIo = require("socket.io");
 
 const port = process.env.PORT || 5000;
-// const index = require("../components");
 
 const app = express();
 app.use(express.static('../public'));
@@ -32,17 +31,15 @@ io.on("connection", (socket) => {
         io.sockets.emit('login',data);
     })
 
-    socket.on('video', function(data){
-    
-        let base64data = Buffer.from(data,'base64').toString('ascii')
-        io.sockets.emit('video',base64data);
-    })
-
     socket.on('videoVision', function(data){
       let base64data = Buffer.from(data,'base64').toString('ascii')
       io.sockets.emit('videoVision',base64data);
     })
+    socket.on('fpsMain',function(fps_data){
+      io.sockets.emit('fpsMain',fps_data);
+    });
 
+    
   });
 
 server.listen(port, () => console.log(`Listening on port ${port}`));

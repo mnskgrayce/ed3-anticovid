@@ -51,94 +51,71 @@ function App({ url }) {
   const [fps_main, setFPSMain] = useState(0);
 
 
-  // Fetch sensor data
-  useInterval(async () => {
-    fetch(`${url}:8000/temp_sensor/1`)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw response;
-      })
-      .then((data) => {
-        setTemperature(data.temperature);
-        setHumidity(data.humidity);
-        setMoisture(data.moisture);
-        setCheckout(data.checkout);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, 200);
+  // // Fetch sensor data
+  // useInterval(async () => {
+  //   fetch(`${url}:8000/temp_sensor/1`)
+  //     .then((response) => {
+  //       if (response.ok) {
+  //         return response.json();
+  //       }
+  //       throw response;
+  //     })
+  //     .then((data) => {
+  //       setTemperature(data.temperature);
+  //       setHumidity(data.humidity);
+  //       setMoisture(data.moisture);
+  //       setCheckout(data.checkout);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, 200);
 
-  // Fetch motion data
-  useInterval(async () => {
-    fetch(`${url}:8000/motion/1`)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw response;
-      })
-      .then((data) => {
-        setEntries(data.people_in);
-        setExits(data.people_out);
-        setTotalPeople(data.total_people);
-        setFPS(data.FPS_camera);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, 500);
+  // // Fetch motion data
+  // useInterval(async () => {
+  //   fetch(`${url}:8000/motion/1`)
+  //     .then((response) => {
+  //       if (response.ok) {
+  //         return response.json();
+  //       }
+  //       throw response;
+  //     })
+  //     .then((data) => {
+  //       setEntries(data.people_in);
+  //       setExits(data.people_out);
+  //       setTotalPeople(data.total_people);
+  //       setFPS(data.FPS_camera);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, 500);
 
-  // Fetch fps  main data
-  useInterval(async () => {
-    fetch(`${url}:8000/fps/1`)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw response;
-      })
-      .then((data) => {
-        setFPSMain(data.fps_main);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, 500);
+  // // Update UI when data changes
+  // useEffect(() => {
+  //   console.log(
+  //     "Temperature: ",
+  //     temperature,
+  //     "\nHumidity: ",
+  //     humidity,
+  //     "\nMoisture: ",
+  //     moisture,
+  //     "\nCheckout: ",
+  //     checkout
+  //   );
+  // }, [temperature, humidity, moisture, checkout]);
 
-  // Update UI when data changes
-  useEffect(() => {
-    console.log(
-      "Temperature: ",
-      temperature,
-      "\nHumidity: ",
-      humidity,
-      "\nMoisture: ",
-      moisture,
-      "\nCheckout: ",
-      checkout
-    );
-  }, [temperature, humidity, moisture, checkout]);
+  // useEffect(() => {
+  //   console.log(
+  //     "Entries: ",
+  //     entries,
+  //     "\nExits: ",
+  //     exits,
+  //     "\nTotal: ",
+  //     totalPeople
+  //   );
+  // }, [entries, exits, totalPeople, fps]);
 
-  useEffect(() => {
-    console.log(
-      "Entries: ",
-      entries,
-      "\nExits: ",
-      exits,
-      "\nTotal: ",
-      totalPeople
-    );
-  }, [entries, exits, totalPeople, fps]);
-
-  useEffect(() => {
-    console.log(
-      "Fps main: ",
-      fps_main
-    );
-  }, [fps_main]);
   return (
     <div className="App">
       <div className="d-flex flex-column vh-100 bg-transparent">
@@ -147,9 +124,10 @@ function App({ url }) {
         </div>
         <div>
           <SensorBar
-            temperature={temperature}
-            humidity={humidity}
-            moisture={moisture}
+            // temperature={temperature}
+            // humidity={humidity}
+            // moisture={moisture}
+            url={url} 
           />
         </div>
         <Container className="flex-grow-1 mb-2">
@@ -157,15 +135,19 @@ function App({ url }) {
             <Col xs={8}>
               <VisionCameraPanel 
                 url={url} 
-                fps_main={fps_main}
               />
             </Col>
             <Col xs={4}>
-              <QRCameraPanel checkout={checkout} fps={fps} url={url} />
+              <QRCameraPanel 
+                // checkout={checkout} 
+                // fps={fps} 
+                url={url} 
+                />
               <MotionBar
-                entries={entries}
-                exits={exits}
-                totalPeople={totalPeople}
+                url={url} 
+                // entries={entries}
+                // exits={exits}
+                // totalPeople={totalPeople}
               />
             </Col>
           </Row>
