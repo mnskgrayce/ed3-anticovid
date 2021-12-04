@@ -2,7 +2,7 @@ import Badge from "react-bootstrap/Badge";
 
 const SensorBar = ({ temperature, humidity, moisture }) => {
   return (
-    <div className="shadow-sm border p-2 mx-4 my-2 bg-body rounded">
+    <div className="shadow-sm border p-2 mx-4 my-2 mb-5 bg-body rounded">
       <div className="d-flex justify-content-center align-items-center">
         <div className="px-5 border-end">
           <i

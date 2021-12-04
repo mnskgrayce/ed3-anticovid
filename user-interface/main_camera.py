@@ -3,9 +3,10 @@ import cv2
 import base64
 import time
 import json
-
+import requests
 
 sio = socketio.Client()
+pTime = 0 
 
 def read_json():
     f = open('package.json') # Opening JSON file
@@ -33,14 +34,25 @@ except:
   print("Server error connection")
 
 # define a video capture object
-vid = cv2.VideoCapture(0)
+vid = cv2.VideoCapture(1)
+url = 'http://192.168.50.46:8000/fps/1'             # API
+# while(True):
+    # cTime = time.time()
+    # fps = round(1 / (cTime - pTime))
+    # pTime = cTime
 
-while(True):
-    x  =  1
-    ret, img = vid.read()                     # get frame from webcam
-    res, frame = cv2.imencode('.jpg', img,[cv2.IMWRITE_JPEG_QUALITY,80])    # from image to binary buffer
-    data = base64.b64encode(frame)              # convert to base64 format
-    try:
-        sio.emit('videoVision', data)                      # send to server
-    except:
-        x = 1
+    # x  =  1
+    # ret, img = vid.read()                     # get frame from webcam
+    # res, frame = cv2.imencode('.jpg', img,[cv2.IMWRITE_JPEG_QUALITY,80])    # from image to binary buffer
+    # data = base64.b64encode(frame)              # convert to base64 format
+    # try:
+    #     sio.emit('videoVision', data)                      # send to server
+    # except:
+    #     x = 1
+
+    # mydict = {
+    #     'id':1,
+    #     'fps_main': fps,
+    #     }
+    # response = requests.put(url, data = mydict)
+    

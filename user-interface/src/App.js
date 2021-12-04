@@ -47,6 +47,10 @@ function App({ url }) {
   const [totalPeople, setTotalPeople] = useState(0);
   const [fps, setFPS] = useState(0);
 
+  //Fps
+  const [fps_main, setFPSMain] = useState(0);
+
+
   // Fetch sensor data
   useInterval(async () => {
     fetch(`${url}:8000/temp_sensor/1`)
@@ -87,6 +91,23 @@ function App({ url }) {
       });
   }, 500);
 
+  // Fetch fps  main data
+  useInterval(async () => {
+    fetch(`${url}:8000/fps/1`)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw response;
+      })
+      .then((data) => {
+        setFPSMain(data.fps_main);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, 500);
+
   // Update UI when data changes
   useEffect(() => {
     console.log(
@@ -112,6 +133,12 @@ function App({ url }) {
     );
   }, [entries, exits, totalPeople, fps]);
 
+  useEffect(() => {
+    console.log(
+      "Fps main: ",
+      fps_main
+    );
+  }, [fps_main]);
   return (
     <div className="App">
       <div className="d-flex flex-column vh-100 bg-transparent">
@@ -128,7 +155,10 @@ function App({ url }) {
         <Container className="flex-grow-1 mb-2">
           <Row className="h-100">
             <Col xs={8}>
-              <VisionCameraPanel url={url} />
+              <VisionCameraPanel 
+                url={url} 
+                fps_main={fps_main}
+              />
             </Col>
             <Col xs={4}>
               <QRCameraPanel checkout={checkout} fps={fps} url={url} />
