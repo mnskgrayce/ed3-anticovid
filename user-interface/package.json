@@ -22,14 +22,14 @@
     "web-vitals": "^1.1.2"
   },
   "config": {
-    "myUrl": "http://192.168.0.108"
+    "myUrl": "http://192.168.50.46"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "boot": "concurrently \"react-scripts start\" \"node server/server.js\" \"node server/serverMain.js\" \"json-server --host 192.168.0.108 db.json --port 8000\" \"python main_camera.py\""
+    "boot": "concurrently \"react-scripts start\" \"node server/server.js\" \"node server/serverMain.js\" \"json-server --host 192.168.50.46 db.json --port 8000\" \"python main_camera.py\""
   },
   "eslintConfig": {
     "extends": [

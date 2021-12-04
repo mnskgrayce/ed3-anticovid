@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-let data = require('/Users/macos/Documents/Engineering Design Course/ed3-anticovid/user-interface/package.json');
+let data = require('../package.json');
 var url = data['config']['myUrl'];
 
 ReactDOM.render(
