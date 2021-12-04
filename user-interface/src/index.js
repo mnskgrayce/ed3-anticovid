@@ -5,9 +5,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+let data = require('../package.json');
+var url = data['config']['myUrl'];
+
 ReactDOM.render(
   <React.StrictMode>
-    <App url="http://192.168.0.102" />
+    <App url={url} />
   </React.StrictMode>,
   document.getElementById("root")
 );
