@@ -56,9 +56,4 @@ while(True):
     sio.emit('videoVision', data)                      # send to server
     sio.emit('fpsMain', fps)                      # send to server
 
-    # Rasp will send to server to UI 
-    sio.emit('sensor', {"temperature": 45,"humidity":34, "moisture":25})
-    sio.emit('motion', {"people_in": 4,"people_out":5, "total_people":2})
-    sio.emit('checkout',  2)
-
     

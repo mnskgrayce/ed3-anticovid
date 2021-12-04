@@ -2,7 +2,7 @@ import Badge from "react-bootstrap/Badge";
 import socketIOClient from "socket.io-client";
 
 const SensorBar = ({url}) => {
-  const ENDPOINT = `${url}:5000`;
+  const ENDPOINT = `${url}:4000`;
 
   const socket = socketIOClient(ENDPOINT);
   socket.on("sensor", function (data) {

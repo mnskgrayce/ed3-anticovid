@@ -3,7 +3,7 @@ import socketIOClient from "socket.io-client";
 
 const MotionBar = ({ url }) => {
 
-  const ENDPOINT = `${url}:5000`;
+  const ENDPOINT = `${url}:4000`;
 
   const socket = socketIOClient(ENDPOINT);
 

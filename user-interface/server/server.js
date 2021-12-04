@@ -55,6 +55,10 @@ io.on("connection", (socket) => {
     socket.on('checkout',function(sensor_data){
       io.sockets.emit('checkout',sensor_data);
     });
+
+    socket.on('fps_qr', function(fps_qr){
+      io.sockets.emit('fps_qr',fps_qr);
+    })
   });
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
