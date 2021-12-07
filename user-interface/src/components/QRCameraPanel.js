@@ -44,7 +44,7 @@ const QRCameraPanel = ({ url }) => {
   });
 
   return (
-    <div className="border shadow-sm bg-body p-2 rounded m-2">
+    <div className="border shadow-sm p-2 rounded bg-dark m-2">
       <div className="position-relative">
         <Badge
           id="checkout_id"
@@ -65,7 +65,7 @@ const QRCameraPanel = ({ url }) => {
           id="myImageID"
           src="https://picsum.photos/1200/900"
           alt="QR Camera"
-          style={{ objectFit: "cover", maxWidth: "36vw", maxHeight: "48vh" }}
+          style={{ objectFit: "cover", maxWidth: "36vw", maxHeight: "50vh" }}
         ></img>
       </div>
     </div>

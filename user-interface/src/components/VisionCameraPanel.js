@@ -31,7 +31,7 @@ const VisionCameraPanel = ({ url }) => {
           id="mySocialID"
           src="https://picsum.photos/2400/1400"
           alt="Main Camera"
-          style={{ objectFit: "cover", maxWidth: "56vw", maxHeight: "60vh" }}
+          style={{ objectFit: "cover", maxWidth: "56vw", maxHeight: "70vh" }}
         ></img>
       </div>
     </div>

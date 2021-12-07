@@ -6,7 +6,7 @@ const WarningLogBar = () => {
 
   return (
     <Alert variant="danger" className="text-start shadow-sm mt-2 mb-0 mx-4">
-      <Alert.Heading>Warning Logs</Alert.Heading>
+      <Alert.Heading className="fs-6 fw-bold">Warning Logs</Alert.Heading>
 
       <p className="mb-0">
         {warningMessage}
