@@ -6,6 +6,7 @@ const VisionCameraPanel = ({ url }) => {
   const socket = socketIOClient(ENDPOINT);
   socket.on("videoVision", function (data) {
     var string_src = "data:image/png;base64, " + data;
+    console.log(string_src);
     document.getElementById("mySocialID").src = string_src;
   });
 

@@ -29,6 +29,8 @@ const QRCameraPanel = ({ url }) => {
       case 4:
         color = "green";
         inner_checkout = "Exiting the room...";
+        document.getElementById("myImageID").src = './exit.jpeg';
+
         break;
     }
     document.getElementById("checkout_id").innerHTML = inner_checkout;

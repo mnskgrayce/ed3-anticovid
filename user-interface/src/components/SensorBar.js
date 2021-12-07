@@ -13,73 +13,61 @@ const SensorBar = ({ url }) => {
   socket.on("sensor", function (data) {
     //Dictionary  {"temperature": temperature,"humidity":humidity, "moisture":moisture}
 
-    setTemperature(data.temperature);
-    setHumidity(data.humidity);
-    setMoisture(data.moisture);
+    // setTemperature(data.temperature);
+    // setHumidity(data.humidity);
+    // setMoisture(data.moisture);
 
-    // //Temperature and background
-    // var color_temp =
-    //   temperature <= 20
-    //     ? "blue"
-    //     : temperature > 20 && temperature < 35
-    //     ? "orange"
-    //     : temperature >= 35
-    //     ? "red"
-    //     : "blue";
-    // var status_temp =
-    //   temperature <= 20
-    //     ? "cold"
-    //     : temperature > 20 && temperature < 35
-    //     ? "normal"
-    //     : temperature >= 35
-    //     ? "hot"
-    //     : "cold";
-    // document.getElementById("temp_id").innerHTML = temperature;
-    // document.getElementById("badge_temp_id").style.backgroundColor = color_temp;
-    // document.getElementById("badge_temp_id").innerHTML = status_temp;
+    var temperature = data.temperature;
+    var humidity = data.humidity;
+    var moisture = data.moisture;
 
-    //Humidityand background
-    var color_humi =
-      humidity <= 50
-        ? "red"
-        : humidity > 50 && humidity < 70
-        ? "green"
-        : humidity >= 70
-        ? "blue"
-        : "red";
-    var status_humi =
-      humidity <= 50
-        ? "red"
-        : humidity > 50 && humidity < 70
-        ? "green"
-        : humidity >= 70
-        ? "blue"
-        : "red";
+    //  Set value for the temperature
+    document.getElementById("temp_id").innerHTML = temperature;
     document.getElementById("humidity_id").innerHTML = humidity;
-    document.getElementById("badge_humi_id").style.backgroundColor = color_humi;
-    document.getElementById("badge_humi_id").innerHTML = status_humi;
-
-    //Moisture background
-    var color_moist =
-      moisture <= 50
-        ? "red"
-        : moisture > 50 && moisture < 70
-        ? "green"
-        : moisture >= 70
-        ? "blue"
-        : "red";
-    var status_moist =
-      moisture <= 50
-        ? "red"
-        : moisture > 50 && moisture < 70
-        ? "green"
-        : moisture >= 70
-        ? "blue"
-        : "red";
     document.getElementById("moist_id").innerHTML = moisture;
-    document.getElementById("badge_moist_id").style.backgroundColor =
-      color_moist;
-    document.getElementById("badge_moist_id").innerHTML = status_moist;
+
+    // Temperature setting for backgroundcolor and status
+    if(temperature <= 20) {
+      document.getElementById("badge_temp_id").style.backgroundColor = "blue";
+      document.getElementById("badge_temp_id").innerHTML = "cold";
+    }
+    else if (temperature > 20 && temperature < 35) {
+      document.getElementById("badge_temp_id").style.backgroundColor = "orange";
+      document.getElementById("badge_temp_id").innerHTML = "normal";
+    }
+    else if (temperature >= 35) {
+      document.getElementById("badge_temp_id").style.backgroundColor = "red";
+      document.getElementById("badge_temp_id").innerHTML = "hot";
+    }
+
+    // Humidity setting for backgroundcolor and status
+    if(humidity <= 50) {
+      document.getElementById("badge_humi_id").style.backgroundColor = "red";
+      document.getElementById("badge_humi_id").innerHTML = "dry";
+    }
+    else if (humidity > 50 && humidity < 70) {
+      document.getElementById("badge_humi_id").style.backgroundColor = "green";
+      document.getElementById("badge_humi_id").innerHTML = "moist";
+    }
+    else if (humidity >= 70) {
+      document.getElementById("badge_humi_id").style.backgroundColor = "blue";
+      document.getElementById("badge_humi_id").innerHTML = "wet";
+    }
+
+    // Moisture setting for backgroundcolor and status
+    if(moisture <= 50) {
+      document.getElementById("badge_moist_id").style.backgroundColor = "red";
+      document.getElementById("badge_moist_id").innerHTML = "dry";
+    }
+    else if (moisture > 50 && moisture < 70) {
+      document.getElementById("badge_moist_id").style.backgroundColor = "green";
+      document.getElementById("badge_moist_id").innerHTML = "moist";
+    }
+    else if (moisture >= 70) {
+      document.getElementById("badge_moist_id").style.backgroundColor = "blue";
+      document.getElementById("badge_moist_id").innerHTML = "wet";
+    }
+
   });
 
   return (
@@ -95,27 +83,11 @@ const SensorBar = ({ url }) => {
             {temperature}
           </span>
           &deg;C
-          <Badge
+          <span
             id="badge_temp_id"
-            className="ms-2"
-            bg={
-              temperature <= 20
-                ? "info"
-                : temperature > 20 && temperature < 35
-                ? "warning"
-                : temperature >= 35
-                ? "danger"
-                : ""
-            }
+            className="ms-2 badge"
           >
-            {temperature <= 20
-              ? "cold"
-              : temperature > 20 && temperature < 35
-              ? "normal"
-              : temperature >= 35
-              ? "hot"
-              : ""}
-          </Badge>
+          </span>
         </div>
 
         <div className="px-5 border-end">
@@ -128,7 +100,7 @@ const SensorBar = ({ url }) => {
             {humidity}
           </span>
           &#37;
-          <Badge id="badge_humi_id" className="ms-2"></Badge>
+          <span id="badge_humi_id" className="ms-2 badge"></span>
         </div>
 
         <div className="px-5 border-end">
@@ -141,7 +113,7 @@ const SensorBar = ({ url }) => {
             {moisture}
           </span>
           &#37;
-          <Badge className="ms-2" id="badge_moist_id"></Badge>
+          <span className="ms-2 badge" id="badge_moist_id"></span>
         </div>
       </div>
     </div>
