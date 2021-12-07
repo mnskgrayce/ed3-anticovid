@@ -1,80 +1,90 @@
-import Badge from "react-bootstrap/Badge";
 import socketIOClient from "socket.io-client";
 
-const SensorBar = ({url}) => {
+const SensorBar = ({ url }) => {
   const ENDPOINT = `${url}:4000`;
 
   const socket = socketIOClient(ENDPOINT);
   socket.on("sensor", function (data) {
-    //Dictionary  {"temperature": temperature,"humidity":humidity, "moisture":moisture}
-    var temperature = data.temperature
-    var  humidity = data.humidity
-    var moisture = data.moisture
+    var temperature = data.temperature;
+    var humidity = data.humidity;
+    var moisture = data.moisture;
 
-    //Temperature and background
-    var color_temp = temperature <= 20? "blue": temperature > 20 && temperature < 35? "orange": temperature >= 35? "red": "blue"
-    var status_temp = temperature <= 20? "cold": temperature > 20 && temperature < 35? "normal": temperature >= 35? "hot": "cold"
+    //  Set value for the temperature
     document.getElementById("temp_id").innerHTML = temperature;
-    document.getElementById("badge_temp_id").style.backgroundColor = color_temp
-    document.getElementById("badge_temp_id").innerHTML = status_temp
-
-    //Humidityand background
-    var color_humi = humidity <= 50? "red": humidity > 50 && humidity < 70? "green": humidity >= 70? "blue": "red"
-    var status_humi = humidity <= 50? "red": humidity > 50 && humidity < 70? "green": humidity >= 70? "blue": "red"
     document.getElementById("humidity_id").innerHTML = humidity;
-    document.getElementById("badge_humi_id").style.backgroundColor = color_humi
-    document.getElementById("badge_humi_id").innerHTML = status_humi
-
-    //Moisture background
-    var color_moist = moisture <= 50? "red": moisture > 50 && moisture < 70? "green": moisture >= 70? "blue": "red"
-    var status_moist= moisture <= 50? "red": moisture > 50 && moisture < 70? "green": moisture >= 70? "blue": "red"
     document.getElementById("moist_id").innerHTML = moisture;
-    document.getElementById("badge_moist_id").style.backgroundColor = color_moist
-    document.getElementById("badge_moist_id").innerHTML = status_moist
+
+    // Temperature setting for backgroundcolor and status
+    if (temperature <= 20) {
+      document.getElementById("badge_temp_id").style.backgroundColor = "blue";
+      document.getElementById("badge_temp_id").innerHTML = "cold";
+    } else if (temperature > 20 && temperature < 35) {
+      document.getElementById("badge_temp_id").style.backgroundColor = "orange";
+      document.getElementById("badge_temp_id").innerHTML = "normal";
+    } else if (temperature >= 35) {
+      document.getElementById("badge_temp_id").style.backgroundColor = "red";
+      document.getElementById("badge_temp_id").innerHTML = "hot";
+    }
+
+    // Humidity setting for backgroundcolor and status
+    if (humidity <= 50) {
+      document.getElementById("badge_humi_id").style.backgroundColor = "red";
+      document.getElementById("badge_humi_id").innerHTML = "dry";
+    } else if (humidity > 50 && humidity < 70) {
+      document.getElementById("badge_humi_id").style.backgroundColor = "green";
+      document.getElementById("badge_humi_id").innerHTML = "moist";
+    } else if (humidity >= 70) {
+      document.getElementById("badge_humi_id").style.backgroundColor = "blue";
+      document.getElementById("badge_humi_id").innerHTML = "wet";
+    }
+
+    // Moisture setting for backgroundcolor and status
+    if (moisture <= 50) {
+      document.getElementById("badge_moist_id").style.backgroundColor = "red";
+      document.getElementById("badge_moist_id").innerHTML = "dry";
+    } else if (moisture > 50 && moisture < 70) {
+      document.getElementById("badge_moist_id").style.backgroundColor = "green";
+      document.getElementById("badge_moist_id").innerHTML = "moist";
+    } else if (moisture >= 70) {
+      document.getElementById("badge_moist_id").style.backgroundColor = "blue";
+      document.getElementById("badge_moist_id").innerHTML = "wet";
+    }
   });
 
   return (
-    <div className="shadow-sm border p-2 mx-4 my-2 mb-5 bg-body rounded">
+    <div className="shadow-sm border p-2 mx-4 my-2 bg-body rounded">
       <div className="d-flex justify-content-center align-items-center">
         <div className="px-5 border-end">
           <i
             className="bi bi-thermometer-high text-danger"
-            style={{ "font-size": "2rem" }}
+            style={{ fontSize: "2rem" }}
           ></i>
-          Temperature:<span id="temp_id" className="ms-2 fw-bold fs-5" ></span>
+          Temperature:
+          <span id="temp_id" className="ms-2 fw-bold fs-5"></span>
           &deg;C
-          <Badge 
-            id="badge_temp_id"
-            className="ms-2"
-          >
-          </Badge>
+          <span id="badge_temp_id" className="ms-2 badge"></span>
         </div>
 
         <div className="px-5 border-end">
           <i
             className="bi bi-water me-2 text-success"
-            style={{ "font-size": "2rem" }}
+            style={{ fontSize: "2rem" }}
           ></i>
-          Humidity:<span id="humidity_id" className="ms-2 fw-bold fs-5"></span>
+          Humidity:
+          <span id="humidity_id" className="ms-2 fw-bold fs-5"></span>
           &#37;
-          <Badge
-            id="badge_humi_id"
-            className="ms-2"
-          >
-          </Badge>
+          <span id="badge_humi_id" className="ms-2 badge"></span>
         </div>
+
         <div className="px-5 border-end">
           <i
             className="bi bi-moisture me-2 text-info"
-            style={{ "font-size": "2rem" }}
+            style={{ fontSize: "2rem" }}
           ></i>
-          Moisture:<span id="moist_id" className="ms-2 fw-bold fs-5"></span>
+          Moisture:
+          <span id="moist_id" className="ms-2 fw-bold fs-5"></span>
           &#37;
-          <Badge
-            className="ms-2"
-            id="badge_moist_id"
-          >
-          </Badge>
+          <span className="ms-2 badge" id="badge_moist_id"></span>
         </div>
       </div>
     </div>

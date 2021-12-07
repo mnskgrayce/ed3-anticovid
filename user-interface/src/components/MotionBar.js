@@ -2,16 +2,15 @@ import Table from "react-bootstrap/Table";
 import socketIOClient from "socket.io-client";
 
 const MotionBar = ({ url }) => {
-
   const ENDPOINT = `${url}:4000`;
 
   const socket = socketIOClient(ENDPOINT);
 
   socket.on("motion", function (data) {
     //Dictionary  {"entries": entries,"exits":exits, "totalPeople":totalPeople}
-    var entries = data.people_in
-    var  exits = data.people_out
-    var totalPeople = data.total_people
+    var entries = data.people_in;
+    var exits = data.people_out;
+    var totalPeople = data.total_people;
 
     //entries and background
     document.getElementById("entries_id").innerHTML = entries;
@@ -23,9 +22,8 @@ const MotionBar = ({ url }) => {
     document.getElementById("totalPeople_id").innerHTML = totalPeople;
   });
 
-
   return (
-    <div className="border shadow-sm bg-body p-2 rounded h-25">
+    <div className="border shadow-sm bg-body p-2 rounded">
       <Table striped borderless hover className="h-100">
         <thead>
           <tr>
@@ -55,8 +53,8 @@ const MotionBar = ({ url }) => {
         <tbody className="fs-3 fw-bold">
           <tr>
             <td id="entries_id" className="text-success"></td>
-            <td id="exits_id"  className="text-danger"></td>
-            <td id="totalPeople_id"  className="text-info"></td>
+            <td id="exits_id" className="text-danger"></td>
+            <td id="totalPeople_id" className="text-info"></td>
           </tr>
         </tbody>
       </Table>
