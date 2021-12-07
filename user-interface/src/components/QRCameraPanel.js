@@ -10,24 +10,24 @@ const QRCameraPanel = ({ url }) => {
     document.getElementById("myImageID").src = string_src;
   });
 
-  socket.on("checkout", function(state_people){
-    var inner_checkout  =  ""
-    var color =  "red"
-    switch(state_people){
+  socket.on("checkout", function (state_people) {
+    var inner_checkout = "";
+    var color = "red";
+    switch (state_people) {
       case 1:
         inner_checkout = "QR is valid!";
-        color  = "green"
+        color = "green";
         break;
       case 2:
-        color  = "red"
+        color = "red";
         inner_checkout = "Room is full!";
         break;
       case 3:
-        color  = "red"
+        color = "red";
         inner_checkout = "QR is invalid!";
         break;
       case 4:
-        color  = "green"
+        color = "green";
         inner_checkout = "Exiting the room...";
         break;
     }
@@ -35,18 +35,17 @@ const QRCameraPanel = ({ url }) => {
     document.getElementById("checkout_id").style.backgroundColor = color;
   });
 
-  socket.on("fps_qr",function(fqs_qr){
-    document.getElementById("fps_id").innerHTML ='FPS: '+ fqs_qr;
+  socket.on("fps_qr", function (fqs_qr) {
+    document.getElementById("fps_id").innerHTML = "FPS: " + fqs_qr;
   });
-  
+
   return (
     <div className="border shadow-sm bg-body mt-5 p-2 rounded">
       <div className="position-relative">
         <Badge
           id="checkout_id"
           className="position-absolute top-0 start-0"
-        >
-        </Badge>
+        ></Badge>
         <p
           id="fps_id"
           className="mb-0 text-end fs-6 font-monospace position-absolute top-0 end-0"
