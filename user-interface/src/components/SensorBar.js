@@ -1,22 +1,10 @@
-import { useState } from "react";
-import Badge from "react-bootstrap/Badge";
 import socketIOClient from "socket.io-client";
 
 const SensorBar = ({ url }) => {
   const ENDPOINT = `${url}:4000`;
 
-  const [temperature, setTemperature] = useState(0);
-  const [humidity, setHumidity] = useState(0);
-  const [moisture, setMoisture] = useState(0);
-
   const socket = socketIOClient(ENDPOINT);
   socket.on("sensor", function (data) {
-    //Dictionary  {"temperature": temperature,"humidity":humidity, "moisture":moisture}
-
-    // setTemperature(data.temperature);
-    // setHumidity(data.humidity);
-    // setMoisture(data.moisture);
-
     var temperature = data.temperature;
     var humidity = data.humidity;
     var moisture = data.moisture;
@@ -27,78 +15,63 @@ const SensorBar = ({ url }) => {
     document.getElementById("moist_id").innerHTML = moisture;
 
     // Temperature setting for backgroundcolor and status
-    if(temperature <= 20) {
+    if (temperature <= 20) {
       document.getElementById("badge_temp_id").style.backgroundColor = "blue";
       document.getElementById("badge_temp_id").innerHTML = "cold";
-    }
-    else if (temperature > 20 && temperature < 35) {
+    } else if (temperature > 20 && temperature < 35) {
       document.getElementById("badge_temp_id").style.backgroundColor = "orange";
       document.getElementById("badge_temp_id").innerHTML = "normal";
-    }
-    else if (temperature >= 35) {
+    } else if (temperature >= 35) {
       document.getElementById("badge_temp_id").style.backgroundColor = "red";
       document.getElementById("badge_temp_id").innerHTML = "hot";
     }
 
     // Humidity setting for backgroundcolor and status
-    if(humidity <= 50) {
+    if (humidity <= 50) {
       document.getElementById("badge_humi_id").style.backgroundColor = "red";
       document.getElementById("badge_humi_id").innerHTML = "dry";
-    }
-    else if (humidity > 50 && humidity < 70) {
+    } else if (humidity > 50 && humidity < 70) {
       document.getElementById("badge_humi_id").style.backgroundColor = "green";
       document.getElementById("badge_humi_id").innerHTML = "moist";
-    }
-    else if (humidity >= 70) {
+    } else if (humidity >= 70) {
       document.getElementById("badge_humi_id").style.backgroundColor = "blue";
       document.getElementById("badge_humi_id").innerHTML = "wet";
     }
 
     // Moisture setting for backgroundcolor and status
-    if(moisture <= 50) {
+    if (moisture <= 50) {
       document.getElementById("badge_moist_id").style.backgroundColor = "red";
       document.getElementById("badge_moist_id").innerHTML = "dry";
-    }
-    else if (moisture > 50 && moisture < 70) {
+    } else if (moisture > 50 && moisture < 70) {
       document.getElementById("badge_moist_id").style.backgroundColor = "green";
       document.getElementById("badge_moist_id").innerHTML = "moist";
-    }
-    else if (moisture >= 70) {
+    } else if (moisture >= 70) {
       document.getElementById("badge_moist_id").style.backgroundColor = "blue";
       document.getElementById("badge_moist_id").innerHTML = "wet";
     }
-
   });
 
   return (
-    <div className="shadow-sm border p-2 mx-4 my-2 mb-5 bg-body rounded">
+    <div className="shadow-sm border p-2 mx-4 my-2 bg-body rounded">
       <div className="d-flex justify-content-center align-items-center">
         <div className="px-5 border-end">
           <i
             className="bi bi-thermometer-high text-danger"
-            style={{ "font-size": "2rem" }}
+            style={{ fontSize: "2rem" }}
           ></i>
           Temperature:
-          <span id="temp_id" className="ms-2 fw-bold fs-5">
-            {temperature}
-          </span>
+          <span id="temp_id" className="ms-2 fw-bold fs-5"></span>
           &deg;C
-          <span
-            id="badge_temp_id"
-            className="ms-2 badge"
-          >
-          </span>
+          <span id="badge_temp_id" className="ms-2 badge"></span>
         </div>
 
         <div className="px-5 border-end">
           <i
             className="bi bi-water me-2 text-success"
-            style={{ "font-size": "2rem" }}
+            style={{ fontSize: "2rem" }}
           ></i>
           Humidity:
-          <span id="humidity_id" className="ms-2 fw-bold fs-5">
-            {humidity}
-          </span>
+          <span id="humidity_id" className="ms-2 fw-bold fs-5"></span>
           &#37;
           <span id="badge_humi_id" className="ms-2 badge"></span>
         </div>
@@ -106,12 +79,10 @@ const SensorBar = ({ url }) => {
         <div className="px-5 border-end">
           <i
             className="bi bi-moisture me-2 text-info"
-            style={{ "font-size": "2rem" }}
+            style={{ fontSize: "2rem" }}
           ></i>
           Moisture:
-          <span id="moist_id" className="ms-2 fw-bold fs-5">
-            {moisture}
-          </span>
+          <span id="moist_id" className="ms-2 fw-bold fs-5"></span>
           &#37;
           <span className="ms-2 badge" id="badge_moist_id"></span>
         </div>

@@ -29,9 +29,11 @@ const QRCameraPanel = ({ url }) => {
       case 4:
         color = "green";
         inner_checkout = "Exiting the room...";
-        document.getElementById("myImageID").src = './exit.jpeg';
-
+        document.getElementById("myImageID").src = "./exit.jpeg";
         break;
+      default:
+        inner_checkout = "Waiting for data...";
+        color = "blue";
     }
     document.getElementById("checkout_id").innerHTML = inner_checkout;
     document.getElementById("checkout_id").style.backgroundColor = color;
@@ -42,7 +44,7 @@ const QRCameraPanel = ({ url }) => {
   });
 
   return (
-    <div className="border shadow-sm bg-body mt-5 p-2 rounded">
+    <div className="border shadow-sm bg-body p-2 rounded m-2">
       <div className="position-relative">
         <Badge
           id="checkout_id"
@@ -61,9 +63,9 @@ const QRCameraPanel = ({ url }) => {
         <img
           className=""
           id="myImageID"
-          src="https://picsum.photos/640/480"
+          src="https://picsum.photos/1200/900"
           alt="QR Camera"
-          style={{ width: "auto", "max-height": "300px", objectFit: "cover" }}
+          style={{ objectFit: "cover", maxWidth: "36vw", maxHeight: "48vh" }}
         ></img>
       </div>
     </div>
