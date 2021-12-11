@@ -24,7 +24,7 @@ const VisionCameraPanel = ({ url }) => {
           }}
           id="fps_main_id"
         >
-          FPS:
+          FPS: 0
         </p>
         <img
           className=""

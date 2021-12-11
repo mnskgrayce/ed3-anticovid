@@ -52,9 +52,15 @@ const MotionBar = ({ url }) => {
         </thead>
         <tbody className="fs-3 fw-bold">
           <tr>
-            <td id="entries_id" className="text-success"></td>
-            <td id="exits_id" className="text-danger"></td>
-            <td id="totalPeople_id" className="text-info"></td>
+            <td id="entries_id" className="text-success">
+              0
+            </td>
+            <td id="exits_id" className="text-danger">
+              0
+            </td>
+            <td id="totalPeople_id" className="text-info">
+              0
+            </td>
           </tr>
         </tbody>
       </Table>
