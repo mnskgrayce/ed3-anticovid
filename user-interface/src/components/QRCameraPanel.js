@@ -46,10 +46,9 @@ const QRCameraPanel = ({ url }) => {
   return (
     <div className="border shadow-sm p-2 rounded bg-dark m-2">
       <div className="position-relative">
-        <Badge
-          id="checkout_id"
-          className="position-absolute top-0 start-0"
-        ></Badge>
+        <Badge id="checkout_id" className="position-absolute top-0 start-0">
+          Waiting for data...
+        </Badge>
         <p
           id="fps_id"
           className="mb-0 text-end fs-6 font-monospace position-absolute top-0 end-0"
@@ -57,7 +56,7 @@ const QRCameraPanel = ({ url }) => {
             color: "red",
           }}
         >
-          FPS:
+          FPS: 0
         </p>
 
         <img

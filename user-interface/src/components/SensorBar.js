@@ -60,9 +60,17 @@ const SensorBar = ({ url }) => {
             style={{ fontSize: "2rem" }}
           ></i>
           Temperature:
-          <span id="temp_id" className="ms-2 fw-bold fs-5"></span>
+          <span id="temp_id" className="ms-2 fw-bold fs-5">
+            25
+          </span>
           &deg;C
-          <span id="badge_temp_id" className="ms-2 badge"></span>
+          <span
+            id="badge_temp_id"
+            className="ms-2 badge"
+            style={{ backgroundColor: "orange" }}
+          >
+            normal
+          </span>
         </div>
 
         <div className="px-5 border-end">
@@ -71,9 +79,17 @@ const SensorBar = ({ url }) => {
             style={{ fontSize: "2rem" }}
           ></i>
           Humidity:
-          <span id="humidity_id" className="ms-2 fw-bold fs-5"></span>
+          <span id="humidity_id" className="ms-2 fw-bold fs-5">
+            50
+          </span>
           &#37;
-          <span id="badge_humi_id" className="ms-2 badge"></span>
+          <span
+            id="badge_humi_id"
+            className="ms-2 badge"
+            style={{ backgroundColor: "red" }}
+          >
+            dry
+          </span>
         </div>
 
         <div className="px-5 border-end">
@@ -82,9 +98,17 @@ const SensorBar = ({ url }) => {
             style={{ fontSize: "2rem" }}
           ></i>
           Moisture:
-          <span id="moist_id" className="ms-2 fw-bold fs-5"></span>
+          <span id="moist_id" className="ms-2 fw-bold fs-5">
+            70
+          </span>
           &#37;
-          <span className="ms-2 badge" id="badge_moist_id"></span>
+          <span
+            className="ms-2 badge"
+            id="badge_moist_id"
+            style={{ backgroundColor: "blue" }}
+          >
+            wet
+          </span>
         </div>
       </div>
     </div>
