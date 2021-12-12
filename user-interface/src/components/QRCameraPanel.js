@@ -3,6 +3,7 @@ import Badge from "react-bootstrap/Badge";
 
 const QRCameraPanel = ({ url }) => {
   const ENDPOINT = `${url}:4000`;
+  var glob_checkout = 0; 
 
   const socket = socketIOClient(ENDPOINT);
   socket.on("video", function (data) {
@@ -31,6 +32,10 @@ const QRCameraPanel = ({ url }) => {
         inner_checkout = "Exiting the room...";
         document.getElementById("myImageID").src = "./exit.jpeg";
         break;
+      case 5:
+        color = "red";
+        inner_checkout = "No Scan";
+        break;
       default:
         inner_checkout = "Waiting for data...";
         color = "blue";
@@ -44,16 +49,17 @@ const QRCameraPanel = ({ url }) => {
   });
 
   return (
-    <div className="border shadow-sm p-2 rounded bg-dark m-2">
+    <div className="border shadow-sm p-4 rounded bg-dark m-2">
       <div className="position-relative">
-        <Badge id="checkout_id" className="position-absolute top-0 start-0">
+        <span id="checkout_id" className="position-absolute top-0 start-0 badge" style={{ "font-size": "1.25rem" }}>
           Waiting for data...
-        </Badge>
+        </span>
         <p
           id="fps_id"
-          className="mb-0 text-end fs-6 font-monospace position-absolute top-0 end-0"
+          className="mb-0 me-2 fw-bold text-end font-monospace position-absolute top-0 end-0"
           style={{
-            color: "red",
+            fontSize: "1.5rem",
+            color: "cyan",
           }}
         >
           FPS: 0

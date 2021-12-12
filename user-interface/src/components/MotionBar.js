@@ -27,30 +27,30 @@ const MotionBar = ({ url }) => {
       <Table striped borderless hover className="h-100">
         <thead>
           <tr>
-            <th className="text-success">
+            <th className=" fs-3 text-success">
               <i
                 className="bi bi-door-open-fill"
-                style={{ "font-size": "1rem" }}
+                style={{ "font-size": "1.5rem" }}
               ></i>
               Entries
             </th>
-            <th className="text-danger">
+            <th className="fs-3 text-danger">
               <i
                 className="bi bi-door-closed-fill"
-                style={{ "font-size": "1rem" }}
+                style={{ "font-size": "1.5rem" }}
               ></i>
               Exits
             </th>
-            <th className="text-info">
+            <th className="fs-3 text-info">
               <i
                 className="bi bi-house-door-fill"
-                style={{ "font-size": "1rem" }}
+                style={{ "font-size": "1.5rem" }}
               ></i>
               Total
             </th>
           </tr>
         </thead>
-        <tbody className="fs-3 fw-bold">
+        <tbody className="fs-2 fw-bold" >
           <tr>
             <td id="entries_id" className="text-success">
               0

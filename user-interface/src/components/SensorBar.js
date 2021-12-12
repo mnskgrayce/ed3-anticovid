@@ -19,7 +19,7 @@ const SensorBar = ({ url }) => {
       document.getElementById("badge_temp_id").style.backgroundColor = "blue";
       document.getElementById("badge_temp_id").innerHTML = "cold";
     } else if (temperature > 20 && temperature < 35) {
-      document.getElementById("badge_temp_id").style.backgroundColor = "orange";
+      document.getElementById("badge_temp_id").style.backgroundColor = "green";
       document.getElementById("badge_temp_id").innerHTML = "normal";
     } else if (temperature >= 35) {
       document.getElementById("badge_temp_id").style.backgroundColor = "red";
@@ -54,13 +54,13 @@ const SensorBar = ({ url }) => {
   return (
     <div className="shadow-sm border p-2 mx-4 my-2 bg-body rounded">
       <div className="d-flex justify-content-center align-items-center">
-        <div className="px-5 border-end">
+        <div className="px-5 border-end fs-3">
           <i
             className="bi bi-thermometer-high text-danger"
             style={{ fontSize: "2rem" }}
           ></i>
           Temperature:
-          <span id="temp_id" className="ms-2 fw-bold fs-5">
+          <span id="temp_id" className="ms-2 fw-bold">
             25
           </span>
           &deg;C
@@ -73,13 +73,13 @@ const SensorBar = ({ url }) => {
           </span>
         </div>
 
-        <div className="px-5 border-end">
+        <div className="px-5 border-end fs-3">
           <i
             className="bi bi-water me-2 text-success"
             style={{ fontSize: "2rem" }}
           ></i>
           Humidity:
-          <span id="humidity_id" className="ms-2 fw-bold fs-5">
+          <span id="humidity_id" className="ms-2 fw-bold">
             50
           </span>
           &#37;
@@ -92,13 +92,13 @@ const SensorBar = ({ url }) => {
           </span>
         </div>
 
-        <div className="px-5 border-end">
+        <div className="px-5 border-end fs-3">
           <i
             className="bi bi-moisture me-2 text-info"
             style={{ fontSize: "2rem" }}
           ></i>
           Moisture:
-          <span id="moist_id" className="ms-2 fw-bold fs-5">
+          <span id="moist_id" className="ms-2 fw-bold">
             70
           </span>
           &#37;

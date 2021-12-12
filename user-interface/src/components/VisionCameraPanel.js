@@ -15,25 +15,29 @@ const VisionCameraPanel = ({ url }) => {
   });
 
   return (
-    <div className="border shadow-sm p-2 rounded bg-dark m-2">
-      <div className="position-relative">
-        <p
-          className="mb-0 text-end fs-6 font-monospace position-absolute top-0 end-0"
-          style={{
-            color: "red",
-          }}
-          id="fps_main_id"
-        >
-          FPS: 0
-        </p>
-        <img
-          className=""
-          id="mySocialID"
-          src="https://picsum.photos/2400/1400"
-          alt="Main Camera"
-          style={{ objectFit: "cover", maxWidth: "56vw", maxHeight: "70vh" }}
-        ></img>
+    <div>
+      <div className="p-4 rounded bg-dark m-2 shadow-sm border">
+        <div className="position-relative">
+          <p
+            className="mb-0 me-2 fw-bold text-end font-monospace position-absolute top-0 end-0"
+            style={{
+              fontSize:"1.5rem",
+              color: "cyan",
+            }}
+            id="fps_main_id"
+          >
+            FPS: 0
+          </p>
+          <img
+            className=""
+            id="mySocialID"
+            src="https://picsum.photos/2400/1400"
+            alt="Main Camera"
+            style={{ objectFit: "cover", maxWidth: "70vw", maxHeight: "70vh", width:"1080px", height:"940px"}}
+          ></img>
+        </div>
       </div>
+
     </div>
   );
 };
