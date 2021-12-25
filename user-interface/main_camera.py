@@ -1,4 +1,3 @@
-from requests.sessions import session
 import socketio
 import cv2
 import base64
@@ -34,12 +33,9 @@ except:
   print("Server error connection")
 
 # define a video capture object
-vid = cv2.VideoCapture(1)
+vid = cv2.VideoCapture(0)
 url_request = url+':8000/fps/1'             # API
-
-async def socket_emit(data) :
-    print("hello")
-    sio.emit('videoVision',data)
+print(url)
 
 while(True):
     cTime = time.time()
