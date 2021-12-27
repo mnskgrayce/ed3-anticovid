@@ -1,16 +1,19 @@
 import socketIOClient from "socket.io-client";
 
+// HEADER socket received
+const VIDEO_VISION = "videoVision"
+const FPS_MAIN_CAMERA = "fpsMain"
+
 const VisionCameraPanel = ({ url }) => {
   const ENDPOINT = `${url}:5000`;
 
   const socket = socketIOClient(ENDPOINT);
-  socket.on("videoVision", function (data) {
+  socket.on(VIDEO_VISION, function (data) {
     var string_src = "data:image/png;base64, " + data;
-    console.log(string_src);
     document.getElementById("mySocialID").src = string_src;
   });
 
-  socket.on("fpsMain", function (data) {
+  socket.on(FPS_MAIN_CAMERA, function (data) {
     document.getElementById("fps_main_id").innerHTML = "FPS: " + data;
   });
 

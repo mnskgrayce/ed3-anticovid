@@ -4,6 +4,13 @@ import base64
 import time
 import json
 
+# constant variable 
+ALARM_SOCIAL_DISTANCE = "alarm_distance"
+SAFE_SOCIAL_DISTANCE = "safe_distance"
+
+ALARM_PEOPLE_GATHERING = "alarm_gathering"
+SAFE_PEOPLE_GATHERING = "safe_gathering"
+
 sio = socketio.Client()
 pTime = 0 
 
@@ -34,9 +41,6 @@ except:
 
 # define a video capture object
 vid = cv2.VideoCapture(0)
-url_request = url+':8000/fps/1'             # API
-print(url)
-
 while(True):
     cTime = time.time()
     fps = round(1 / (cTime - pTime))
@@ -50,5 +54,13 @@ while(True):
     # Video 
     sio.emit('videoVision', data)                      # send to server
     sio.emit('fpsMain', fps)                      # send to server
+
+    # info social distance 
+    social_distance = ALARM_SOCIAL_DISTANCE
+    sio.emit('socialDistance', social_distance)
+    
+    # info people gathering 
+    people_gathering  = ALARM_PEOPLE_GATHERING
+    sio.emit('peopleGathering', people_gathering)
 
     

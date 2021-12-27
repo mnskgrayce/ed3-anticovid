@@ -1,3 +1,9 @@
+// HEADER socket received and send 
+const VIDEO_VISION_SOCKET = "videoVision"
+const FPS_MAIN_CAMERA_SOCKET = "fpsMain"
+const SOCIAL_DISTANCE_SOCKET = "socialDistance"
+const PEOPLE_GATHERING_SOCKET = "peopleGathering"
+
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
@@ -14,7 +20,7 @@ const io = socketIo(server, {
       origin: "*",
       methods: ["GET", "POST"]
     }
-  });
+});
 
 io.on("connection", (socket) => {
     console.log("New client connected");
@@ -23,23 +29,26 @@ io.on("connection", (socket) => {
       console.log("Client disconnected");
     });
 
-    socket.on('chat',function(data){
-        io.sockets.emit('chat',data);
-    })
-
-    socket.on('login', function(data){
-        io.sockets.emit('login',data);
-    })
-
-    socket.on('videoVision', function(data){
+    // Vision camera image 
+    socket.on(VIDEO_VISION_SOCKET, function(data){
       let base64data = Buffer.from(data,'base64').toString('ascii')
-      io.sockets.emit('videoVision',base64data);
+      io.sockets.emit(VIDEO_VISION_SOCKET,base64data);
     })
-    socket.on('fpsMain',function(fps_data){
-      io.sockets.emit('fpsMain',fps_data);
+
+    // Frame per second of the camera 
+    socket.on(FPS_MAIN_CAMERA_SOCKET,function(fps_data){
+      io.sockets.emit(FPS_MAIN_CAMERA_SOCKET,fps_data);
     });
 
+    // info social distance 
+    socket.on(SOCIAL_DISTANCE_SOCKET,function(social_distance_data){
+      io.sockets.emit(SOCIAL_DISTANCE_SOCKET,social_distance_data);
+    });
     
+    // info people gathering
+    socket.on(PEOPLE_GATHERING_SOCKET,function(people_gathering_data){
+      io.sockets.emit(PEOPLE_GATHERING_SOCKET,people_gathering_data);
+    });    
   });
 
 server.listen(port, () => console.log(`Listening on port ${port}`));

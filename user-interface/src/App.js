@@ -12,7 +12,7 @@ function App({ url }) {
   return (
     <div className="App">
       <div className="container-fluid p-0 bg-transparent overflow-hidden">
-        <WarningLogBar />
+        <WarningLogBar url={url} />
         <SensorBar url={url} />
 
         <div className="d-flex flex-row justify-content-evenly align-items-stretch px-2">

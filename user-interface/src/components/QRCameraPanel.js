@@ -1,9 +1,7 @@
 import socketIOClient from "socket.io-client";
-import Badge from "react-bootstrap/Badge";
 
 const QRCameraPanel = ({ url }) => {
   const ENDPOINT = `${url}:4000`;
-  var glob_checkout = 0; 
 
   const socket = socketIOClient(ENDPOINT);
   socket.on("video", function (data) {

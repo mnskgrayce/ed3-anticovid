@@ -24,15 +24,6 @@ io.on("connection", (socket) => {
       console.log("Client disconnected");
     });
 
-    socket.on('chat',function(data){
-        console.log(data);
-        io.sockets.emit('chat',data);
-    })
-
-    socket.on('login', function(data){
-        io.sockets.emit('login',data);
-    })
-
     socket.on('video', function(data){
     
         let base64data = Buffer.from(data,'base64').toString('ascii')
