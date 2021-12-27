@@ -16,7 +16,7 @@ const WarningLogBar = ({ url }) => {
   const PEOPLE_GATHERING_SOCKET = "peopleGathering"
 
   // Socket 
-  const ENDPOINT = `${url}:4000`;
+  const ENDPOINT = `${url}:5000`;
   const socket = socketIOClient(ENDPOINT);
 
   // Socket send social distance 
