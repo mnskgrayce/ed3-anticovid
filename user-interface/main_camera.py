@@ -63,7 +63,4 @@ while(True):
     people_gathering  = ALARM_PEOPLE_GATHERING
     sio.emit('peopleGathering', people_gathering)
 
-    # people at risk 
-    sio.emit('peopleAtRisk', 3)
-
     

@@ -3,7 +3,6 @@ const VIDEO_VISION_SOCKET = "videoVision"
 const FPS_MAIN_CAMERA_SOCKET = "fpsMain"
 const SOCIAL_DISTANCE_SOCKET = "socialDistance"
 const PEOPLE_GATHERING_SOCKET = "peopleGathering"
-const PEOPLE_AT_RISK = "peopleAtRisk"
 
 
 const express = require("express");

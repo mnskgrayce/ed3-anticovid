@@ -15,9 +15,6 @@ const WarningLogBar = ({ url }) => {
   const SOCIAL_DISTANCE_SOCKET = "socialDistance"
   const PEOPLE_GATHERING_SOCKET = "peopleGathering"
 
-  // Info  people at risk 
-  const PEOPLE_AT_RISK = "peopleAtRisk"
-
   // Socket 
   const ENDPOINT = `${url}:5000`;
   const socket = socketIOClient(ENDPOINT);
@@ -51,10 +48,6 @@ const WarningLogBar = ({ url }) => {
       document.querySelector(".people_gathering_alarm").style.filter = "brightness(50%)";
       document.querySelector(".people_gathering_safe").style.filter = "brightness(100%)";
     }
-  });
-
-  socket.on(PEOPLE_AT_RISK, function (people_at_risk) {
-    document.getElementById('people_at_risk_id').innerHTML=people_at_risk;
   });
 
   return (
@@ -108,9 +101,7 @@ const WarningLogBar = ({ url }) => {
         </div>
 
         <div className="col-4 text-white">
-          {/* num people+take action */}
-          <h1>People at risk</h1>
-          <h2 id="people_at_risk_id">5</h2>
+          {date.toString()}
         </div>
       </div>
     </div>
