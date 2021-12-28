@@ -3,6 +3,8 @@ const VIDEO_VISION_SOCKET = "videoVision"
 const FPS_MAIN_CAMERA_SOCKET = "fpsMain"
 const SOCIAL_DISTANCE_SOCKET = "socialDistance"
 const PEOPLE_GATHERING_SOCKET = "peopleGathering"
+const PEOPLE_AT_RISK = "peopleAtRisk"
+
 
 const express = require("express");
 const http = require("http");
@@ -48,7 +50,12 @@ io.on("connection", (socket) => {
     // info people gathering
     socket.on(PEOPLE_GATHERING_SOCKET,function(people_gathering_data){
       io.sockets.emit(PEOPLE_GATHERING_SOCKET,people_gathering_data);
-    });    
+    }); 
+    
+    // info people gathering
+    socket.on(PEOPLE_AT_RISK,function(people_at_risk){
+      io.sockets.emit(PEOPLE_AT_RISK,people_at_risk);
+    });     
   });
 
 server.listen(port, () => console.log(`Listening on port ${port}`));

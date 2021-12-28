@@ -16,14 +16,25 @@ Clone this repository onto your local machine then perform the following steps:
 2. Create a folder with the same name as the branch to contain your subteam's code
 3. Put your code inside this folder and push to your subteam's branch
 
-To run code from the software team:
+## To run code, please use Windows to run the code 
 
 - Install Node JS and NPM: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 - It is best to install NPM by the Node Version Manager (https://github.com/nvm-sh/nvm) to avoid package permission issues
-- After cloning the team repository, checkout the `user-interface` branch and run `cd user-interface`
-- Run `npm install` to reinstall missing packages, then run `npm start` to boot up the web application
+- Install python: https://www.python.org/downloads/
+- Install pip : https://www.geeksforgeeks.org/how-to-install-pip-on-windows/#:~:text=Download%20and%20Install%20pip%3A&text=Download%20the%20get%2Dpip.py,where%20the%20above%20file%20exists.&text=and%20wait%20through%20the%20installation,now%20installed%20on%20your%20system. 
+
+
+- For running website and camera panel, do the instruction below :
+- ** Notes: Use powershell to run the command below 
+- Run `pip install -r requirements.txt`
+- Run `cd user-interface`
+- Run `npm install` to reinstall missing packages, then run `npm run boot` to boot up the web application
 - Right click anywhere then choose "Inspect" to open the Developer Tools panel
 - You can view the live update logs in the "Console" tab
+
+- For running on raspberry pi. 
+
+
 
 ## Git Workflow
 

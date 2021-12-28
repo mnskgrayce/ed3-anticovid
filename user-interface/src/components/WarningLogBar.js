@@ -15,6 +15,9 @@ const WarningLogBar = ({ url }) => {
   const SOCIAL_DISTANCE_SOCKET = "socialDistance"
   const PEOPLE_GATHERING_SOCKET = "peopleGathering"
 
+  // Info  people at risk 
+  const PEOPLE_AT_RISK = "peopleAtRisk"
+
   // Socket 
   const ENDPOINT = `${url}:5000`;
   const socket = socketIOClient(ENDPOINT);
@@ -23,48 +26,95 @@ const WarningLogBar = ({ url }) => {
   socket.on(SOCIAL_DISTANCE_SOCKET, function (social_distance_data) {
     if(social_distance_data ===  ALARM_SOCIAL_DISTANCE){
       // Warning for social distance
+      document.querySelector(".social_distance_alarm").style.filter = "brightness(100%)";
+      document.querySelector(".social_distance_safe").style.filter = "brightness(50%)";
     }
 
     else if (social_distance_data ===  SAFE_SOCIAL_DISTANCE){
       // safe for social distance 
+      document.querySelector(".social_distance_alarm").style.filter = "brightness(50%)";
+      document.querySelector(".social_distance_safe").style.filter = "brightness(100%)";
     }
-  });
-
-    // Socket send social distance 
-  socket.on(SOCIAL_DISTANCE_SOCKET, function (social_distance_data) {
-    if(social_distance_data ===  ALARM_SOCIAL_DISTANCE){
-      // Warning for social distance
-
-    }
-
-    else if (social_distance_data ===  SAFE_SOCIAL_DISTANCE){
-      // safe for social distance 
-
-    }
+    // console.log(social_distance_data);
   });
 
   // Socket send social distance 
   socket.on(PEOPLE_GATHERING_SOCKET, function (people_gathering_data) {
     if(people_gathering_data ===  ALARM_PEOPLE_GATHERING){
       // Warning for people gathering
-
+      document.querySelector(".people_gathering_alarm").style.filter = "brightness(100%)";
+      document.querySelector(".people_gathering_safe").style.filter = "brightness(50%)";
     }
 
     else if (people_gathering_data ===  SAFE_PEOPLE_GATHERING){
       // safe for people gathering 
-
+      document.querySelector(".people_gathering_alarm").style.filter = "brightness(50%)";
+      document.querySelector(".people_gathering_safe").style.filter = "brightness(100%)";
     }
   });
 
-  return (
-    <Alert variant="danger" className="text-start shadow-sm mt-2 mb-0 mx-4">
-      <Alert.Heading className="fs-2 fw-bold">Warning Logs</Alert.Heading>
+  socket.on(PEOPLE_AT_RISK, function (people_at_risk) {
+    document.getElementById('people_at_risk_id').innerHTML=people_at_risk;
+  });
 
-      <p className="mb-0 fs-4">
-        {warningMessage}
-        <small className="text-muted ms-2">{date.toString()}</small>
-      </p>
-    </Alert>
+  return (
+    // <Alert variant="danger" className="text-start shadow-sm mt-2 mb-0 mx-4">
+    //   <Alert.Heading className="fs-2 fw-bold">Warning Logs</Alert.Heading>
+
+    //   <p className="mb-0 fs-4">
+    //     {warningMessage}
+    //     <small className="text-muted ms-2">{date.toString()}</small>
+    //   </p>
+      
+    // </Alert>
+    <div className="border shadow-sm p-2 rounded bg-dark m-2">
+      <div className="row">
+        <div className="col-2">
+          {/* soical distance  alarm*/}
+          <img
+            className="social_distance_alarm"
+            src="./UI_Vision/social_distance_alarm.jpg"
+            alt="social distance alarm"
+            style={{ objectFit: "cover", maxWidth: "10vw", maxHeight: "10vh" }}
+          ></img>
+        </div>
+        <div className="col-2">
+          {/* soical distance  safe*/}
+          <img
+            className="social_distance_safe"
+            src="./UI_Vision/social_distance_safe.jpg"
+            alt="social distance safe"
+            style={{ objectFit: "cover", maxWidth: "10vw", maxHeight: "10vh" }}
+          ></img>
+        </div>
+
+        <div className="col-2">
+          {/* people gathering alarm */}
+          <img
+            className="people_gathering_alarm"
+            src="./UI_Vision/people_gathering_alarm.png"
+            alt="people gathering alarm"
+            style={{ objectFit: "cover", maxWidth: "10vw", maxHeight: "10vh" }}
+          ></img>
+        </div>
+        <div className="col-2">
+          {/* people gathering safe*/}
+          <img
+            className="people_gathering_safe"
+            src="./UI_Vision/people_gathering_safe.png"
+            alt="people gathering safe"
+            style={{ objectFit: "cover", maxWidth: "10vw", maxHeight: "10vh" }}
+          ></img>
+        </div>
+
+        <div className="col-4 text-white">
+          {/* num people+take action */}
+          <h1>People at risk</h1>
+          <h2 id="people_at_risk_id">5</h2>
+        </div>
+      </div>
+    </div>
+    
   );
 };
 

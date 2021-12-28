@@ -56,11 +56,14 @@ while(True):
     sio.emit('fpsMain', fps)                      # send to server
 
     # info social distance 
-    social_distance = ALARM_SOCIAL_DISTANCE
+    social_distance = SAFE_SOCIAL_DISTANCE
     sio.emit('socialDistance', social_distance)
     
     # info people gathering 
     people_gathering  = ALARM_PEOPLE_GATHERING
     sio.emit('peopleGathering', people_gathering)
+
+    # people at risk 
+    sio.emit('peopleAtRisk', 3)
 
     
