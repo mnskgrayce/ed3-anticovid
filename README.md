@@ -22,7 +22,7 @@ Clone this repository onto your local machine then perform the following steps:
 - Run the command in this link: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 - Install python: https://www.python.org/downloads/
 - Install pip : https://www.geeksforgeeks.org/how-to-install-pip-on-windows/#:~:text=Download%20and%20Install%20pip%3A&text=Download%20the%20get%2Dpip.py,where%20the%20above%20file%20exists.&text=and%20wait%20through%20the%20installation,now%20installed%20on%20your%20system. 
-
+- Clone the github
 
 - For running website and camera panel, do the instruction below :
 - ** Notes: Use powershell to run the command below 
@@ -33,7 +33,6 @@ Clone this repository onto your local machine then perform the following steps:
 - You can view the live update logs in the "Console" tab
 
 - For running on raspberry pi. 
-
 
 
 ## Git Workflow
