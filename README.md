@@ -18,8 +18,8 @@ Clone this repository onto your local machine then perform the following steps:
 
 ## To run code, please use Windows to run the code 
 
-- Install Node JS and NPM: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
-- It is best to install NPM by the Node Version Manager (https://github.com/nvm-sh/nvm) to avoid package permission issues
+- Download and install node: https://nodejs.org/en/download/
+- Run the command in this link: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 - Install python: https://www.python.org/downloads/
 - Install pip : https://www.geeksforgeeks.org/how-to-install-pip-on-windows/#:~:text=Download%20and%20Install%20pip%3A&text=Download%20the%20get%2Dpip.py,where%20the%20above%20file%20exists.&text=and%20wait%20through%20the%20installation,now%20installed%20on%20your%20system. 
 
