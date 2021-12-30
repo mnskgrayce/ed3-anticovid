@@ -50,6 +50,10 @@ io.on("connection", (socket) => {
     socket.on('fps_qr', function(fps_qr){
       io.sockets.emit('fps_qr',fps_qr);
     })
+
+    socket.on('Qr_data', function(myData){
+      io.sockets.emit('Qr_data',myData);
+    })   
   });
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
