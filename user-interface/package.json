@@ -29,7 +29,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "boot": "concurrently \"node get_IP_Adress.js\" \"react-scripts start\" \"node server/server.js\" \"node server/serverMain.js\" \"python main_camera.py\""
+    "boot": "concurrently \"node get_IP_Adress.js\" \"react-scripts start\" \"node server/server.js\" \"node server/serverMain.js\" \"cd ../Social-Distancing-AI-master && python main.py\""
   },
   "eslintConfig": {
     "extends": [
