@@ -62,7 +62,7 @@ const WarningLogBar = ({ url }) => {
               id="name_id_1"
               className="list-group-item"
               style={{
-                color: "darkblue",
+                color: "dodgerblue",
               }}
             >
               ID 1
@@ -71,7 +71,7 @@ const WarningLogBar = ({ url }) => {
               id="name_id_2"
               className="list-group-item"
               style={{
-                color: "dodgerblue",
+                color: "darkblue",
               }}
             >
               ID 2
