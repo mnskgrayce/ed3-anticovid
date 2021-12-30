@@ -51,10 +51,6 @@ io.on("connection", (socket) => {
       io.sockets.emit(PEOPLE_GATHERING_SOCKET,people_gathering_data);
     }); 
     
-    // info people gathering
-    socket.on(PEOPLE_AT_RISK,function(people_at_risk){
-      io.sockets.emit(PEOPLE_AT_RISK,people_at_risk);
-    });     
   });
 
 server.listen(port, () => console.log(`Listening on port ${port}`));

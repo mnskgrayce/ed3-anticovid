@@ -22,7 +22,7 @@
     "web-vitals": "^1.1.2"
   },
   "config": {
-    "myUrl": "http://10.247.205.77"
+    "myUrl": "http://192.168.0.103"
   },
   "scripts": {
     "start": "react-scripts start",
