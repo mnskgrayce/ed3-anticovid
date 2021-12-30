@@ -60,9 +60,9 @@ const WarningLogBar = ({ url }) => {
           <ul className="list-group">
             <li
               id="name_id_1"
-              className="list-group-item disabled"
+              className="list-group-item"
               style={{
-                fontColor: "blue",
+                color: "darkblue",
               }}
             >
               ID 1
@@ -71,7 +71,7 @@ const WarningLogBar = ({ url }) => {
               id="name_id_2"
               className="list-group-item"
               style={{
-                fontColor: "blue",
+                color: "dodgerblue",
               }}
             >
               ID 2
