@@ -22,24 +22,30 @@ import numpy as np
 # Red: High Risk
 # Yellow: Low Risk
 # Green: No Risk
+red = (0, 0, 255)
+green = (0, 255, 0)
+yellow = (0, 255, 255)
+black = (96, 96, 96)
 sts = " "
+c_sts = green
 rule1 = 0
 rule2 = 0
 action = 0
 
+
 def bird_eye_view(frame, distances_mat, bottom_points, scale_w, scale_h, risk_count):
     global sts
+    global c_sts
     global rule1
     global rule2
     global action
     timer = 0
     h = frame.shape[0]
     w = frame.shape[1]
-
-    red = (0, 0, 255)
-    green = (0, 255, 0)
-    yellow = (0, 255, 255)
-    black = (0, 0, 0)
+    global red
+    global green
+    global yellow
+    global black
 
     blank_image = np.zeros((int(h * scale_h), int(w * scale_w), 3), np.uint8)
     blank_image[:] = black
@@ -63,10 +69,12 @@ def bird_eye_view(frame, distances_mat, bottom_points, scale_w, scale_h, risk_co
         if (count_r > 1) and (count_r < 5):
             rule1 = 1  # Rule 1 Violation
             sts = "Social Distance Detection!!! (High Risk)"
+            c_sts = red
             print(sts)
         elif count_r > 5:  # More Than 3 people gathering (above 5 connection) - High Risk
             rule2 = 1  # Rule 2 Violation
             sts = "Gathering Detection!!! (High Risk)"
+            c_sts = red
             print(sts)
 
     for i in range(len(distances_mat)):
@@ -82,6 +90,7 @@ def bird_eye_view(frame, distances_mat, bottom_points, scale_w, scale_h, risk_co
         if (count_y > 5) and (rule2 == 0):  # More Than 3 people gathering (above 5 connection) - Low Risk
             rule2 = 1  # Rule 2 Violation
             sts = "Gathering Detection!!! (Low Risk)"
+            c_sts = yellow
             print(sts)
 
     for i in range(len(distances_mat)):
@@ -120,6 +129,11 @@ def bird_eye_view(frame, distances_mat, bottom_points, scale_w, scale_h, risk_co
 # Green: No Risk 
 def social_distancing_view(frame, distances_mat, boxes, risk_count):
     global sts
+    global c_sts
+    global red
+    global green
+    global yellow
+    global black
     red = (0, 0, 255)
     green = (0, 255, 0)
     yellow = (0, 255, 255)
@@ -160,14 +174,16 @@ def social_distancing_view(frame, distances_mat, boxes, risk_count):
             frame = cv2.line(frame, (int(x+w/2), int(y+h/2)), (int(x1+w1/2), int(y1+h1/2)),red, 2)
             
     pad = np.full((140,frame.shape[1],3), [0, 0, 0], dtype=np.uint8)
-    cv2.putText(pad, "Bounding box shows the risk level of the person:", (50, 30),cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
-    cv2.putText(pad, "--- HIGH RISK : " + str(risk_count[0]) + " people", (50, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 1)
-    cv2.putText(pad, "--- LOW RISK : " + str(risk_count[1]) + " people", (50, 80), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 1)
-    cv2.putText(pad, "--- SAFE : " + str(risk_count[2]) + " people", (50,  100), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 1)
+    cv2.putText(pad, "ROOM ANALYSIS:", (15, 40),cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
+    cv2.putText(pad, "--- HIGH RISK : " + str(risk_count[0]) + " people", (300, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+    cv2.putText(pad, "--- LOW RISK : " + str(risk_count[1]) + " people", (300, 45), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 1)
+    cv2.putText(pad, "--- SAFE : " + str(risk_count[2]) + " people", (300,  65), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 1)
     if(str(risk_count[0]) == "0"):
         sts = "Safety!!! No rules violation!"
+        c_sts = green
         print(sts)
-    cv2.putText(pad, "==> STATUS : " + str(sts), (30, 125), cv2.FONT_HERSHEY_SIMPLEX, 0.65, (255, 255, 0), 2)
+
+    cv2.putText(pad, "STATUS : " + str(sts), (30, 95), cv2.FONT_HERSHEY_SIMPLEX, 0.65, c_sts, 2)
     frame = np.vstack((frame, pad))
             
     return frame

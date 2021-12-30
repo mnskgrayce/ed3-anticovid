@@ -76,7 +76,7 @@ def get_distances(boxes1, bottom_points, distance_w, distance_h):
 # Function gives scale for birds eye view               
 def get_scale(W, H):
     
-    dis_w = 440
+    dis_w = 250
     dis_h = 620
     
     return float(dis_w/W),float(dis_h/H)

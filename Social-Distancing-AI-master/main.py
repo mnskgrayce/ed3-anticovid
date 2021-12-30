@@ -29,9 +29,42 @@ import argparse
 # own modules
 import utills, plot
 
+# socketio 
+import socketio
+import base64
+import socket 
+
 confid = 0.5
 thresh = 0.5
 mouse_pts = []
+pTime = 0 
+sio = socketio.Client()
+
+# constant variable 
+ALARM_SOCIAL_DISTANCE = "alarm_distance"
+SAFE_SOCIAL_DISTANCE = "safe_distance"
+
+ALARM_PEOPLE_GATHERING = "alarm_gathering"
+SAFE_PEOPLE_GATHERING = "safe_gathering"
+
+# get IP address 
+def get_IP_Adress():
+    hostname = socket.gethostname()
+    local_ip = socket.gethostbyname(hostname)
+    return local_ip
+
+@sio.event
+def connect():
+    print("I'm connected!")
+
+@sio.event
+def connect_error():
+    print("The connection failed!")
+
+@sio.event
+def disconnect():
+    print('disconnected from server')
+
 
 
 # Function to get points for Region of Interest(ROI) and distance scale. It will take 8 points on first frame using mouse click    
@@ -68,7 +101,7 @@ def get_mouse_points(event, x, y, flags, param):
 def calculate_social_distancing(vid_path, net, output_dir, output_vid, ln1):
     
     count = 0
-    vs = cv2.VideoCapture(0)
+    vs = cv2.VideoCapture(1)
 
     # Get video height, width and fps
     height = int(vs.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -85,8 +118,23 @@ def calculate_social_distancing(vid_path, net, output_dir, output_vid, ln1):
         
     points = []
     global image
-    while True:
+    global pTime
+    global sio
 
+    try:
+        url = 'http://'+get_IP_Adress()
+        print(url)
+        sio.connect(url+':5000/')
+    except:
+        print("Server error connection")
+        
+    while True:
+        # Start read fps 
+        cTime = time.time()
+        fps = round(1 / (cTime - pTime))
+        pTime = cTime
+
+        # read frame image
         (grabbed, frame) = vs.read()
 
         if not grabbed:
@@ -194,8 +242,16 @@ def calculate_social_distancing(vid_path, net, output_dir, output_vid, ln1):
             img = cv2.hconcat([img, bird_image])
             # cv2.imshow('Bird Eye View', bird_image)
             cv2.imshow("Output", img)
-            cv2.imwrite(output_dir+"vison/frame%d.jpg" % count, img)
-            #cv2.imwrite(output_dir+"bird_eye_view/frame%d.jpg" % count, bird_image)
+
+            # send image by socketio 
+            res, frame = cv2.imencode('.jpg', img,[cv2.IMWRITE_JPEG_QUALITY,80])    # from image to binary buffer
+            data = base64.b64encode(frame)              # convert to base64 format
+            # Video 
+            sio.emit('videoVision', data)                      # send to server
+            sio.emit('fpsMain', fps)                      # send to server
+
+            # cv2.imwrite(output_dir+"vison/frame%d.jpg" % count, img)
+            # cv2.imwrite(output_dir+"bird_eye_view/frame%d.jpg" % count, bird_image)
     
         count = count + 1
         if cv2.waitKey(1) & 0xFF == ord('q'):
