@@ -29,11 +29,9 @@ fs.readFile('package.json', (err, read_data) => {
 
     try {
         package_json["config"]["myUrl"] = "http://"+results["en0"][0];
-      } catch (error) {
+    } catch (error) {
         package_json["config"]["myUrl"] = "http://"+results["Wi-Fi"][0];
-      }
-      
-    package_json["config"]["myUrl"] = "http://"+results["en0"][0];
+    }
 
     //write data to JSON file 
     let written_data = JSON.stringify(package_json, null, 2);
