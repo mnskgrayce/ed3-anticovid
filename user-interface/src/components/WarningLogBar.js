@@ -14,6 +14,7 @@ const WarningLogBar = ({ url }) => {
 
   socket.on(ENTRANCE_PEOPLE, function (myData) {
     // push to queue name
+
     if(queue.length === 2){
       queue.shift();  //put 
     }
