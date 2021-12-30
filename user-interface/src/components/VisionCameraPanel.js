@@ -31,7 +31,7 @@ const VisionCameraPanel = ({ url }) => {
           >
             FPS: 0
           </p>
-          <img
+          <img 
             className=""
             id="mySocialID"
             src="https://picsum.photos/2400/1400"
