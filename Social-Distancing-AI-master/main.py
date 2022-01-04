@@ -34,7 +34,7 @@ import socketio
 import base64
 import socket 
 
-confid = 0.55
+confid = 0.5
 thresh = 0.5
 mouse_pts = []
 pTime = 0
