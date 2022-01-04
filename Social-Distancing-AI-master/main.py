@@ -34,10 +34,12 @@ import socketio
 import base64
 import socket 
 
-confid = 0.5
+confid = 0.55
 thresh = 0.5
 mouse_pts = []
-pTime = 0 
+pTime = 0
+no_people = 0
+main_cam = 1    # Set main camera ID
 sio = socketio.Client()
 
 # constant variable 
@@ -99,9 +101,10 @@ def get_mouse_points(event, x, y, flags, param):
 
 
 def calculate_social_distancing(vid_path, net, output_dir, output_vid, ln1):
+    global main_cam
     
     count = 0
-    vs = cv2.VideoCapture(1)
+    vs = cv2.VideoCapture(main_cam)
 
     # Get video height, width and fps
     height = int(vs.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -119,6 +122,7 @@ def calculate_social_distancing(vid_path, net, output_dir, output_vid, ln1):
     points = []
     global image
     global pTime
+    global no_people
     global sio
 
     try:
@@ -129,6 +133,7 @@ def calculate_social_distancing(vid_path, net, output_dir, output_vid, ln1):
         print("Server error connection")
         
     while True:
+        img = cv2.imread("no_people_image.png")
         # Start read fps 
         cTime = time.time()
         fps = round(1 / (cTime - pTime))
@@ -219,7 +224,7 @@ def calculate_social_distancing(vid_path, net, output_dir, output_vid, ln1):
                 
         if len(boxes1) == 0:
             count = count + 1
-            continue
+            # continue
             
         # Here we will be using bottom center point of bounding box for all boxes and will transform all those
         # bottom center points to bird eye view
@@ -228,6 +233,8 @@ def calculate_social_distancing(vid_path, net, output_dir, output_vid, ln1):
         # Here we will calculate distance between transformed points(humans)
         distances_mat, bxs_mat = utills.get_distances(boxes1, person_points, distance_w, distance_h)
         risk_count = utills.get_count(distances_mat)
+        total = risk_count[0] + risk_count[1] + risk_count[2]
+        #print('green point',risk_count[2])
         frame1 = np.copy(frame)
         
         # Draw bird eye view and frame with bouding boxes around humans according to risk factor    
@@ -235,20 +242,24 @@ def calculate_social_distancing(vid_path, net, output_dir, output_vid, ln1):
         img = plot.social_distancing_view(frame1, bxs_mat, boxes1, risk_count)
         
         # Show/write image and videos
-        if count != 0:
-            count = 1
-            # output_movie.write(img)
-            # bird_movie.write(bird_image)
-            img = cv2.hconcat([img, bird_image])
-            # cv2.imshow('Bird Eye View', bird_image)
-            cv2.imshow("Output", img)
+        # if count != 0:
+        #     count = 1
+        # output_movie.write(img)
+        # bird_movie.write(bird_image)
+        img = cv2.hconcat([img, bird_image])
+        #cv2.imshow('Bird Eye View', bird_image)
 
-            # send image by socketio 
-            res, frame = cv2.imencode('.jpg', img,[cv2.IMWRITE_JPEG_QUALITY,80])    # from image to binary buffer
-            data = base64.b64encode(frame)              # convert to base64 format
-            # Video 
-            sio.emit('videoVision', data)                      # send to server
-            sio.emit('fpsMain', fps)                      # send to server
+        cv2.imshow("Output", img)
+        # send image by socketio 
+        res, frame = cv2.imencode('.jpg', img,[cv2.IMWRITE_JPEG_QUALITY,80])    # from image to binary buffer
+        data = base64.b64encode(frame)              # convert to base64 format
+        # Video 
+        sio.emit('videoVision', data)                      # send to server
+        sio.emit('fpsMain', fps)     
+
+            
+
+                            # send to server
 
             # cv2.imwrite(output_dir+"vison/frame%d.jpg" % count, img)
             # cv2.imwrite(output_dir+"bird_eye_view/frame%d.jpg" % count, bird_image)

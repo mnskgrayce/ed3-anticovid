@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectModuleManager">
@@ -5,4 +8,31 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/Social-Distancing-AI-master.iml" filepath="$PROJECT_DIR$/.idea/Social-Distancing-AI-master.iml" />
     </modules>
   </component>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Social-Distancing-AI-master.iml" filepath="$PROJECT_DIR$/.idea/Social-Distancing-AI-master.iml" />
+    </modules>
+  </component>
+>>>>>>> fcfd6f15204223b69fe40531778df7d8ca926234
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Social-Distancing-AI-master.iml" filepath="$PROJECT_DIR$/.idea/Social-Distancing-AI-master.iml" />
+    </modules>
+  </component>
+>>>>>>> f70a1f4c977e530fc8cf8b20f940b7cb61add321
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Social-Distancing-AI-master.iml" filepath="$PROJECT_DIR$/.idea/Social-Distancing-AI-master.iml" />
+    </modules>
+  </component>
+>>>>>>> f70a1f4c977e530fc8cf8b20f940b7cb61add321
 </project>
