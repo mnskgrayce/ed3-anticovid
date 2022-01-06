@@ -1,18 +1,24 @@
-'''
-	Motion detection using PIR on raspberry Pi
-	http://www.electronicwings.com
-'''
-import RPi.GPIO as GPIO
+#!/usr/bin/env python
+ 
+import time
+ 
+from grove.grove_relay import GroveRelay
+from grove.grove_ultrasonic_ranger import GroveUltrasonicRanger
+ 
+def main():
+    # Grove - Ultrasonic Ranger connected to port D5
+    sensor = GroveUltrasonicRanger(18)
+ 
 
-PIR_input = 29				#read PIR Output
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BOARD)		#choose pin no. system
-GPIO.setup(PIR_input, GPIO.IN)	
-
-
-while True:
-#when motion detected turn on LED
-    if(GPIO.input(PIR_input)):
-        print('no motion')
-    else:
-        print('motion')
+ 
+    while True:
+        distance = sensor.get_distance()
+        print('{} cm'.format(distance))
+        cTime = time.time()
+        currentTime = time.ctime()
+        print('time', currentTime)
+ 
+        time.sleep(0.2)
+ 
+if __name__ == '__main__':
+    main()

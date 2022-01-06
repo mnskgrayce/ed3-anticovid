@@ -40,16 +40,6 @@ io.on("connection", (socket) => {
     socket.on(FPS_MAIN_CAMERA_SOCKET,function(fps_data){
       io.sockets.emit(FPS_MAIN_CAMERA_SOCKET,fps_data);
     });
-
-    // info social distance 
-    socket.on(SOCIAL_DISTANCE_SOCKET,function(social_distance_data){
-      io.sockets.emit(SOCIAL_DISTANCE_SOCKET,social_distance_data);
-    });
-    
-    // info people gathering
-    socket.on(PEOPLE_GATHERING_SOCKET,function(people_gathering_data){
-      io.sockets.emit(PEOPLE_GATHERING_SOCKET,people_gathering_data);
-    }); 
     
   });
 
