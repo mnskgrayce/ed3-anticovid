@@ -49,7 +49,11 @@ const QRCameraPanel = ({ url }) => {
   return (
     <div className="border shadow-sm p-4 rounded bg-dark m-2">
       <div className="position-relative">
-        <span id="checkout_id" className="position-absolute top-0 start-0 badge" style={{ "font-size": "1.25rem" }}>
+        <span
+          id="checkout_id"
+          className="position-absolute top-0 start-0 badge"
+          style={{ fontSize: "1.25rem" }}
+        >
           Waiting for data...
         </span>
         <p
