@@ -97,11 +97,17 @@ def bird_eye_view(frame, distances_mat, bottom_points, scale_w, scale_h, risk_co
         
             blank_image = cv2.line(blank_image, (int(distances_mat[i][0][0] * scale_w), int(distances_mat[i][0][1] * scale_h)), (int(distances_mat[i][1][0] * scale_w), int(distances_mat[i][1][1]* scale_h)), yellow, 2)
             count_y += 1
-        if (count_y > 4) and (rule2 == 0):  # More Than 3 people gathering (above 5 connection) - Low Risk
+            print("Count yellow: ", count_y)
+        if (count_y > 4):  # More Than 3 people gathering (above 5 connection) - Low Risk
+            print("Count yellow Warning: ", count_y)
             rule2 = 1  # Rule 2 Violation
             sts_r2 = "Warning - Gathering Detection!!!"
             c_sts_r2 = yellow
+            update_safe = 0
             print("Rule 2: ", sts_r2)
+        else:
+            sts_r2 = sts_r2
+            c_sts_r2 = c_sts_r2
 
     for i in range(len(distances_mat)):
         
