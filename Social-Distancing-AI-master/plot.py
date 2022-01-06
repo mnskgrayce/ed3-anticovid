@@ -220,13 +220,13 @@ def social_distancing_view(frame, distances_mat, boxes, risk_count):
         cv2.putText(pad, "- HIGH RISK : " + str(risk_count[0]) + " people", (location, start_location), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 1)
         cv2.putText(pad, "- LOW RISK : " + str(risk_count[1]) + " people", (location, start_location + 25), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 1)
         cv2.putText(pad, "- SAFE : " + str(risk_count[2]) + " people", (location, start_location + 50), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 1)
-        if(str(risk_count[0]) == "0"):
-            sts_r1 = "Safety, No rule violation!"
-            sts_r2 = "Safety, No rule violation!"
-            c_sts_r1 = green
-            c_sts_r2 = green
-            print("Rule 1: ", sts_r1)
-            print("Rule 2: ", sts_r2)
+        # if(str(risk_count[0]) == "0"):
+        #     sts_r1 = "Safety, No rule violation!"
+        #     sts_r2 = "Safety, No rule violation!"
+        #     c_sts_r1 = green
+        #     c_sts_r2 = green
+        #     print("Rule 1: ", sts_r1)
+        #     print("Rule 2: ", sts_r2)
 
         cv2.putText(pad, "Rule 1: " + str(sts_r1), (15,70), cv2.FONT_HERSHEY_SIMPLEX, 0.6, c_sts_r1, 2)
         cv2.putText(pad, "Rule 2: " + str(sts_r2), (15, 95), cv2.FONT_HERSHEY_SIMPLEX, 0.6, c_sts_r2, 2)
