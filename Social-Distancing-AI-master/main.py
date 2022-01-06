@@ -254,8 +254,8 @@ def calculate_social_distancing(vid_path, net, output_dir, output_vid, ln1):
         res, frame = cv2.imencode('.jpg', img,[cv2.IMWRITE_JPEG_QUALITY,80])    # from image to binary buffer
         data = base64.b64encode(frame)              # convert to base64 format
         # Video 
-        sio.emit('videoVision', data)                      # send to server
-        sio.emit('fpsMain', fps)     
+        # sio.emit('videoVision', data)                      # send to server
+        # sio.emit('fpsMain', fps)     
 
             
 
