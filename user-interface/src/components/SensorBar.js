@@ -92,7 +92,7 @@ const SensorBar = ({ url }) => {
           </span>
         </div>
 
-        <div className="px-5 border-end fs-3">
+        <div className="px-5 fs-3">
           <i
             className="bi bi-moisture me-2 text-info"
             style={{ fontSize: "2rem" }}
