@@ -39,7 +39,7 @@ thresh = 0.5
 mouse_pts = []
 pTime = 0
 no_people = 0
-main_cam = 1    # Set main camera ID
+main_cam = 0    # Set main camera ID
 sio = socketio.Client()
 
 # constant variable 
